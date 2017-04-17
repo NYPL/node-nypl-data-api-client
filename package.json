@@ -1,0 +1,31 @@
+{
+  "name": "nypl-data-api-client",
+  "version": "0.0.1",
+  "description": "Simple client for interacting with NYPL's internal data api",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && mocha"
+  },
+  "author": "@nonword",
+  "license": "ISC",
+  "dependencies": {
+    "loglevel": "^1.4.1",
+    "node-cache": "^4.1.1",
+    "oauth": "^0.9.15",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NYPL-discovery/node-nypl-data-api-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NYPL-discovery/node-nypl-data-api-client/issues"
+  },
+  "homepage": "https://github.com/NYPL-discovery/node-nypl-data-api-client#readme"
+}
