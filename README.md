@@ -40,8 +40,8 @@ Params:
 To authenticate and fetch a bib (all GETs authenticate first, by default):
 ```js
 client.get('bibs/sierra-nypl/17746307').then((bib) => {
-  alert('Got bib: ' + bib.title)
-})
+  console.log('Got bib: ' + bib.title)
+}).catch((e) => console.error('Error authenticating or fetching bib: ', e))
 ```
 
 To get the "Item" stream schema, which doesn't require authentication:
