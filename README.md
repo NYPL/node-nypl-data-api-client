@@ -35,10 +35,18 @@ Params:
  - **path**: String path to retrieve
  - **opts**: Optional options hash that may include:
    - **cache**: Boolean, default `true`. Controls whether or not response is cached (using default configuration of [node-cache](https://www.npmjs.com/package/node-cache)
+   - **authenticate**: Boolean, default `true`. Controls whether or not to OAUTH first.
 
-For example, to get the "Item" stream schema:
+To authenticate and fetch a bib (all GETs authenticate first, by default):
 ```js
-client.get('current-schemas/Item').then((schema) => {
+client.get('bibs/sierra-nypl/17746307').then((bib) => {
+  alert('Got bib: ' + bib.title)
+})
+```
+
+To get the "Item" stream schema, which doesn't require authentication:
+```js
+client.get('current-schemas/Item', { authenticate: false }).then((schema) => {
   // Now we can build an avro encoder by parsing the escaped "schema" prop:
   var avroType = require('avsc').parse(JSON.parse(schema.schema))
 })

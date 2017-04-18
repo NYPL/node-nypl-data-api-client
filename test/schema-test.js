@@ -9,8 +9,7 @@ describe('Schema test', function () {
   describe('Schema endpoint', function () {
     it('should return Item schema', function () {
       var client = new Client()
-      // https://api.nypltech.org/api/v0.1/current-schemas/Item
-      return client.get('current-schemas/Item')
+      return client.get('current-schemas/Item', { authenticate: false })
         .then((schema) => {
           assert(schema)
           assert.equal(schema.stream, 'Item')
