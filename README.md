@@ -7,13 +7,13 @@ Helper lib for interacting with the (internal) NYPL Data API
 Install it via npm for use inside your project:
 
 ```js
-npm i nypl-data-api-client --save
+npm i @nypl/nypl-data-api-client --save
 ```
 
 ## Usage
 
 ```js
-const NyplClient = require('nypl-data-api-client')
+const NyplClient = require('@nypl/nypl-data-api-client')
 var client = new NyplClient({ base_url: 'http://example.com/api/v0.1/' })
 ```
 
