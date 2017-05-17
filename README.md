@@ -82,9 +82,20 @@ To get help with any command run:
 nypl-data-api help [command]
 ```
 
-### nypl-data-api schema post [name] [jsonfile]
+Note that the lib draws from the following environment variables, which you can place in `.env`:
 
-This command uploads the content of the given jsonfile to `schemas/[name]`
+ - NYPL_API_BASE_URL
+ - NYPL_OAUTH_KEY
+ - NYPL_OAUTH_SECRET
+ - NYPL_OAUTH_URL
+
+### Schema post
+
+Run the following to upload the content of the given jsonfile to `schemas/[name]`
+
+```js
+nypl-data-api schema post [name] [jsonfile]
+```
 
 ## Testing
 
