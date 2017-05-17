@@ -68,6 +68,24 @@ client.post('schemas/TestSchema', '{ "name": "TestSchema", "type": "record", "fi
   })
 ```
 
+## CLI
+
+A small CLI exists for common tasks. Run the following for a list of commands:
+
+```js
+nypl-data-api
+```
+
+To get help with any command run:
+
+```js
+nypl-data-api help [command]
+```
+
+### nypl-data-api schema post [name] [jsonfile]
+
+This command uploads the content of the given jsonfile to `schemas/[name]`
+
 ## Testing
 
 ```js

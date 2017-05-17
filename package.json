@@ -9,9 +9,15 @@
   "author": "@nonword",
   "license": "ISC",
   "dependencies": {
+    "avsc": "^5.0.2",
+    "colors": "^1.1.2",
+    "diff": "^3.2.0",
+    "dotenv": "^4.0.0",
     "loglevel": "^1.4.1",
+    "minimist": "^1.2.0",
     "node-cache": "^4.1.1",
     "oauth": "^0.9.15",
+    "prompt": "^1.0.0",
     "request": "^2.81.0"
   },
   "devDependencies": {
@@ -19,6 +25,9 @@
   },
   "directories": {
     "test": "test"
+  },
+  "bin": {
+    "nypl-data-api": "./bin/nypl-data-api.js"
   },
   "repository": {
     "type": "git",
