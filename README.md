@@ -52,6 +52,26 @@ client.get('current-schemas/Item', { authenticate: false }).then((schema) => {
 })
 ```
 
+To get patron id `12345678` (note you must auth with an account that has the 'read:patron' role):
+```js
+client.get('patrons/12345678').then((patron) => {
+  if (!patron) console.error('Could not find patron')
+  else {
+    var pType = Object.keys(patron.fixedFields).map((key) => patron.fixedFields[key])
+      .filter((fixed) => fixed.label === 'Patron Type')[0]
+      .value
+    var name = patron.names[0]
+    var barcode = patron.barCodes[0]
+
+    console.log('Patron:')
+    console.log('  Name: ' + name)
+    console.log('  Barcode: ' + barcode)
+    console.log('  Patron Type: ' + pType)
+  }
+})
+```
+
+
 ### client.post (path, data)
 
 Returns a Promise that resolves after submitting `data` to `path`
