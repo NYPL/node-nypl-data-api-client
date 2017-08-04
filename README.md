@@ -36,6 +36,7 @@ Params:
  - **opts**: Optional options hash that may include:
    - **cache**: Boolean, default `true`. Controls whether or not response is cached (using default configuration of [node-cache](https://www.npmjs.com/package/node-cache)
    - **authenticate**: Boolean, default `true`. Controls whether or not to OAUTH first.
+   - **token_expiration_retries**: Int, default 1. Controls how many times the client will attempt to fetch a new OAUTH token if cached token seems to have expired.
 
 To authenticate and fetch a bib (all GETs authenticate first, by default):
 ```js
@@ -119,6 +120,8 @@ nypl-data-api schema post [name] [jsonfile]
 
 ## Testing
 
+1.  Pull this repository
+1.  Copy `./.env.example` to `./.env` and plug in values
 ```js
 npm test
 ```

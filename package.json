@@ -4,7 +4,7 @@
   "description": "Simple client for interacting with NYPL's internal data api",
   "main": "index.js",
   "scripts": {
-    "test": "standard && mocha"
+    "test": "./node_modules/.bin/standard && ./node_modules/.bin/mocha"
   },
   "author": "@nonword",
   "license": "ISC",
@@ -21,7 +21,8 @@
     "request": "^2.81.0"
   },
   "devDependencies": {
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "standard": "^6.0.8"
   },
   "directories": {
     "test": "test"
