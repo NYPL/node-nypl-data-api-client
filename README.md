@@ -120,6 +120,8 @@ nypl-data-api schema post [name] [jsonfile]
 
 ## Testing
 
+1.  Pull this repository
+1.  Copy `./.env.example` to `./.env` and plug in values
 ```js
 npm test
 ```
