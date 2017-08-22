@@ -73,13 +73,15 @@ client.get('patrons/12345678').then((patron) => {
 ```
 
 
-### client.post (path, data)
+### client.post (path, data, headers)
 
 Returns a Promise that resolves after submitting `data` to `path`
 
 Params:
  - **path**: String path to retrieve
  - **data**: Object/data you want to POST to the endpoint
+ - **headers**: Object representing headers to send to the endpoint. 
+   By default, the `Authorization` and `Content-type: application/json` headers are added.
 
 For example, to post a new "TestSchema" schema:
 ```js
