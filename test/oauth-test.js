@@ -1,22 +1,28 @@
-/* global describe it */
+/* global describe it beforeEach afterEach */
 
 const assert = require('assert')
-const Client = require('../index')
+
+let client = null
 
 describe('OAUTH', function () {
   this.timeout(10000)
+  beforeEach(() => {
+    client = require('./make-test-client')()
+  })
+
+  afterEach(() => {
+    client = null
+  })
 
   describe('token expiration', function () {
     it('should trigger token refresh', function () {
-      var client = new Client()
-
       // Do something that triggers token fetch:
       return client.get('bibs?limit=1&offset=0', { authenticate: true })
         .then((res) => {
           assert(res)
 
-          // Emulate token expiration by making it invalid:
-          client.access_token = 'gobbledeesplat'
+          // Emulate token expiration by making setting it to this known "expired" token value:
+          client.access_token = 'fake-expired-token'
           return client.get('bibs?limit=1&offset=1', { authenticate: true }).then((res) => {
             assert(res)
           })
@@ -24,16 +30,14 @@ describe('OAUTH', function () {
     })
 
     it('should attempt to refresh token only N times after first failure', function () {
-      var client = new Client()
-
       // Do something that triggers token fetch:
       return client.get('bibs?limit=1&offset=0', { authenticate: true })
         .then((res) => {
           // This one should succeed because we haven't monkeyed with the token yet:
           assert(res)
 
-          // Emulate token expiration by making it invalid:
-          client.access_token = 'gobbledeesplat'
+          // Emulate token expiration by making setting it to this known "expired" token value:
+          client.access_token = 'fake-expired-token'
 
           // Emulate repeated token refresh failure by hijacking refreshToken:
           let refreshCalled = 0

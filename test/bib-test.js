@@ -1,14 +1,20 @@
-/* global describe it */
+/* global describe it beforeEach afterEach */
 
 const assert = require('assert')
-const Client = require('../index')
+
+let client = null
 
 describe('Bib test', function () {
-  this.timeout(10000)
+  beforeEach(() => {
+    client = require('./make-test-client')()
+  })
+
+  afterEach(() => {
+    client = null
+  })
 
   describe('Bibs endpoint', function () {
     it('should return a Bib', function () {
-      var client = new Client()
       return client.get('bibs/sierra-nypl/17746307', { authenticate: true })
         .then((bib) => {
           assert(bib)

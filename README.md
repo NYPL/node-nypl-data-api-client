@@ -12,33 +12,21 @@ npm i @nypl/nypl-data-api-client --save
 
 ## Usage
 
+Initialization
+
 ```js
 const NyplClient = require('@nypl/nypl-data-api-client')
-var client = new NyplClient({ base_url: 'http://example.com/api/v0.1/' })
+var client = new NyplClient({ base_url: 'http://[FQDN].com/api/v0.1/' })
 ```
 
-Client options include:
- - **base_url**: Base URL for the api (e.g. 'http://example.com/api/v0.1/'). (Alternatively use NYPL_API_BASE_URL)
- - **oauth_key**: OAUTH key (Alternatively use NYPL_OAUTH_KEY)
- - **oauth_secret**: OAUTH secret (Alternatively use NYPL_OAUTH_SECRET)
- - **oauth_url**: OAUTH URL. (Alternatively use NYPL_OAUTH_URL)
- - **log_level**: Set [log level](https://github.com/pimterry/loglevel) (i.e. info, error, warn, debug). Default env.LOG_LEVEL or 'error'
+### Docs
 
-Note that you must specify URL base for the api via `base_url` config (as above) or via `NYPL_API_BASE_URL` env variable. The value should include everything from the protocol to the version number in the path (as above).
-.
+See [usage.md](usage.md) for complete documentation of Client methods and use.
 
-### client.get (path, opts)
-
-Returns a Promise that resolves content at `path` (e.g. 'current-schemas/Item')
-
-Params:
- - **path**: String path to retrieve
- - **opts**: Optional options hash that may include:
-   - **cache**: Boolean, default `true`. Controls whether or not response is cached (using default configuration of [node-cache](https://www.npmjs.com/package/node-cache)
-   - **authenticate**: Boolean, default `true`. Controls whether or not to OAUTH first.
-   - **token_expiration_retries**: Int, default 1. Controls how many times the client will attempt to fetch a new OAUTH token if cached token seems to have expired.
+### Examples
 
 To authenticate and fetch a bib (all GETs authenticate first, by default):
+
 ```js
 client.get('bibs/sierra-nypl/17746307').then((bib) => {
   console.log('Got bib: ' + bib.title)
@@ -72,18 +60,7 @@ client.get('patrons/12345678').then((patron) => {
 })
 ```
 
-
-### client.post (path, data, headers)
-
-Returns a Promise that resolves after submitting `data` to `path`
-
-Params:
- - **path**: String path to retrieve
- - **data**: Object/data you want to POST to the endpoint
- - **headers**: Object representing headers to send to the endpoint. 
-   By default, the `Authorization` and `Content-type: application/json` headers are added.
-
-For example, to post a new "TestSchema" schema:
+To POST a new "TestSchema" schema:
 ```js
 client.post('schemas/TestSchema', '{ "name": "TestSchema", "type": "record", "fields": [ ... ] }')
   .then((resp) => {
@@ -122,8 +99,14 @@ nypl-data-api schema post [name] [jsonfile]
 
 ## Testing
 
-1.  Pull this repository
-1.  Copy `./.env.example` to `./.env` and plug in values
+All tests work offline with `request` and `oauth` stubs:
+
 ```js
 npm test
+```
+
+If you want to run the test suite against real infrastructure, you can do so as follows:
+
+```js
+USE_CREDENTIALS=[credentials file, e.g. '.env'] npm test
 ```
