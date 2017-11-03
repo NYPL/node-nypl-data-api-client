@@ -1,7 +1,3 @@
-/* global describe it beforeEach afterEach */
-
-const assert = require('assert')
-
 let client = null
 
 describe('OAUTH', function () {
@@ -19,12 +15,12 @@ describe('OAUTH', function () {
       // Do something that triggers token fetch:
       return client.get('bibs?limit=1&offset=0', { authenticate: true })
         .then((res) => {
-          assert(res)
+          expect(res).to.be.a('object')
 
           // Emulate token expiration by making setting it to this known "expired" token value:
           client.access_token = 'fake-expired-token'
           return client.get('bibs?limit=1&offset=1', { authenticate: true }).then((res) => {
-            assert(res)
+            expect(res).to.be.a('object')
           })
         })
     })
@@ -34,7 +30,7 @@ describe('OAUTH', function () {
       return client.get('bibs?limit=1&offset=0', { authenticate: true })
         .then((res) => {
           // This one should succeed because we haven't monkeyed with the token yet:
-          assert(res)
+          expect(res).to.be.a('object')
 
           // Emulate token expiration by making setting it to this known "expired" token value:
           client.access_token = 'fake-expired-token'
@@ -50,13 +46,14 @@ describe('OAUTH', function () {
           // We'll let it attempt to refresh the token 3 times in sequence
           // Each time it will fail because we've replaced the refreshToken method with utter nonsense
           return client.get('bibs?limit=1&offset=1', { authenticate: true, token_expiration_retries: 3 }).then((res) => {
+            throw new Error('Expected failure due to hijacked refreshToken, but it seems to have resolved.')
             // Arriving here is a failure because we passed an invalid token
-            assert(false)
           }).catch((error) => {
             // When client exhauses retries, this error is thrown:
-            assert.equal(error.name, 'TokenRefreshError')
+            expect(error).to.be.a('error')
+            expect(error).to.have.a.property('name', 'TokenRefreshError')
             // Confirm it retried exactly options.token_expiration_retries times:
-            assert.equal(refreshCalled, 3)
+            expect(refreshCalled).to.equal(3)
           })
         })
     })

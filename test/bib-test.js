@@ -1,7 +1,3 @@
-/* global describe it beforeEach afterEach */
-
-const assert = require('assert')
-
 let client = null
 
 describe('Bib test', function () {
@@ -16,10 +12,10 @@ describe('Bib test', function () {
   describe('Bibs endpoint', function () {
     it('should return a Bib', function () {
       return client.get('bibs/sierra-nypl/17746307', { authenticate: true })
-        .then((bib) => {
-          assert(bib)
-          assert.equal(bib.id, 17746307)
-          assert.equal(bib.nyplSource, 'sierra-nypl')
+        .then((resp) => {
+          expect(resp.data).to.be.a('object')
+          expect(resp.data).to.have.a.property('id', '17746307')
+          expect(resp.data).to.have.a.property('nyplSource', 'sierra-nypl')
         })
     })
   })

@@ -1,5 +1,3 @@
-/* global before after */
-
 const fs = require('fs')
 const OAuth = require('oauth')
 const sinon = require('sinon')

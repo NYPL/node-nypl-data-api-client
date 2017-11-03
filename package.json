@@ -14,6 +14,7 @@
     "diff": "^3.2.0",
     "dotenv": "^4.0.0",
     "loglevel": "^1.4.1",
+    "loglevel-plugin-prefix": "^0.5.3",
     "minimist": "^1.2.0",
     "node-cache": "^4.1.1",
     "oauth": "^0.9.15",
@@ -22,13 +23,24 @@
     "request": "^2.81.0"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "mocha": "^3.2.0",
     "proxyquire": "^1.8.0",
     "sinon": "^4.0.2",
     "standard": "^6.0.8"
   },
   "standard": {
-    "globals": [ "describe", "it", "before", "after", "beforeEach", "afterEach" ]
+    "globals": [
+      "expect",
+      "assert",
+      "describe",
+      "it",
+      "before",
+      "after",
+      "beforeEach",
+      "afterEach"
+    ]
   },
   "directories": {
     "test": "test"

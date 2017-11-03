@@ -45,5 +45,15 @@ module.exports = function (options, callback) {
 
   // Fetch mock data from filesystem:
   let data = mockData(options)
+
+  // Mock special `json=[true/false]` request config param
+  if (options.json === false) {
+    // Throw error if body is an object:
+    if (options.body && (typeof options.body) === 'object') return callback(new Error('request invocation error: with json=false, payload can not be object'))
+
+    // Emulate plaintext response by to-stringing mock data:
+    data = (typeof data) === 'object' ? JSON.stringify(data) : String(data)
+  }
+
   callback(null, { statusCode: 200 }, data)
 }
