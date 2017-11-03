@@ -23,6 +23,8 @@ var client = new NyplClient({ base_url: 'http://[FQDN].com/api/v0.1/' })
 
 See [usage.md](usage.md) for complete documentation of Client methods and use.
 
+(Usage doc is generated via `./node_modules/.bin/jsdoc2md lib/client.js > usage.md`.)
+
 ### Examples
 
 To authenticate and fetch a bib (all GETs authenticate first, by default):

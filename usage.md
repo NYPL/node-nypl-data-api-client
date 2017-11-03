@@ -98,7 +98,7 @@ DELETE an object from an api endpoint
 | --- | --- | --- |
 | authenticate | <code>boolean</code> | Whether or not to authenticate before performing request. Default `true` |
 | json | <code>boolean</code> | Indicates endpoint serves and consumes json.    If set to true, `request` will add header "Content-type: application/json"    as well as automatically parse response as json. |
-| cache | <code>boolean</code> | Whether or not to cache the result. Only allowed for GET/OPTIONS requests. |
+| cache | <code>boolean</code> | Whether or not to cache the result. Only allowed for GET requests. Default `false` |
 | headers | <code>Object</code> | Hash of headers to pass in the request. Default {}. |
 | token_expiration_retries | <code>integer</code> | Number of refresh attempts to make if token expired. Default 1 |
 
