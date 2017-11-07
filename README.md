@@ -30,14 +30,16 @@ See [usage.md](usage.md) for complete documentation of Client methods and use.
 To authenticate and fetch a bib (all GETs authenticate first, by default):
 
 ```js
-client.get('bibs/sierra-nypl/17746307').then((bib) => {
+client.get('bibs/sierra-nypl/17746307').then((resp) => {
+  let bib = resp.data
   console.log('Got bib: ' + bib.title)
 }).catch((e) => console.error('Error authenticating or fetching bib: ', e))
 ```
 
 To get the "Item" stream schema, which doesn't require authentication:
 ```js
-client.get('current-schemas/Item', { authenticate: false }).then((schema) => {
+client.get('current-schemas/Item', { authenticate: false }).then((resp) => {
+  let schema = resp.data
   // Now we can build an avro encoder by parsing the escaped "schema" prop:
   var avroType = require('avsc').parse(JSON.parse(schema.schema))
 })
@@ -45,7 +47,8 @@ client.get('current-schemas/Item', { authenticate: false }).then((schema) => {
 
 To get patron id `12345678` (note you must auth with an account that has the 'read:patron' role):
 ```js
-client.get('patrons/12345678').then((patron) => {
+client.get('patrons/12345678').then((resp) => {
+  let patron = resp.data
   if (!patron) console.error('Could not find patron')
   else {
     var pType = Object.keys(patron.fixedFields).map((key) => patron.fixedFields[key])
