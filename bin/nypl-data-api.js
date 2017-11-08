@@ -22,6 +22,16 @@ var doPost = function (path, content) {
     })
 }
 
+var doGet = function (path) {
+  console.log('get path: ', path)
+  client.get(path)
+    .then((resp) => {
+      console.log(JSON.stringify(resp, null, 2))
+    }).catch((e) => {
+      console.error('Error: ', e)
+    })
+}
+
 var showDiff = function (one, two) {
   one = JSON.stringify(one, null, 2)
   two = JSON.stringify(two, null, 2)
@@ -86,41 +96,57 @@ const commandHash = {
       usage: 'nypl-data-api schema post [name] [jsonfile]',
       exec: schemaPost
     }
+  },
+  get: {
+    description: 'Get arbitrary endpoint',
+    usage: 'nypl-data-api get [path]',
+    exec: doGet
   }
 }
 
 function help (command, subcommand) {
+  let commandSpec = null
+
   if (commandHash[command] && commandHash[command][subcommand]) {
-    console.log('Help: ' + command + ' ' + subcommand)
-    console.log('Description: ' + commandHash[command][subcommand].description)
-    console.log('Usage: ' + commandHash[command][subcommand].usage)
+    commandSpec = commandHash[command][subcommand]
   } else if (command && commandHash[command]) {
-    console.log('Help: ' + command)
-    console.log('Available subcommands: \n  ' + Object.keys(commandHash[command]).join('\n  '))
+    if (commandHash[command].exec) commandSpec = commandHash[command]
+    else {
+      let subCommands = Object.keys(commandHash[command])
+      console.log('Available subcommands: \n  ' + subCommands.join('\n  '))
+    }
   } else {
-    console.log('Available commands: \n  ' + Object.keys(commandHash).join('\n  '))
+    let commands = Object.keys(commandHash)
+    console.log('Available commands: \n  ' + commands.join('\n  '))
+  }
+
+  if (commandSpec) {
+    console.log('Help: ' + command + (subcommand ? ' ' + subcommand : ''))
+    console.log('Description: ' + commandSpec.description)
+    console.log('Usage: ' + commandSpec.usage)
   }
 }
 
 var command = argv._[0]
 var subcommand = argv._[1]
 
-if (!command || !commandHash[command]) help()
+if (!command) help()
 else if (command === 'help') {
   var _command = argv._[1]
   var _subcommand = argv._[2]
   help(_command, _subcommand)
 } else if (command) {
   try {
-    if (subcommand) {
-      if (commandHash[command][subcommand]) commandHash[command][subcommand].exec()
-      else help(command)
-    } else if (commandHash[command].exec) commandHash[command].exec()
+    let exec = commandHash[command][subcommand]
+    let args = []
+    if (!exec) {
+      exec = commandHash[command].exec
+      args = argv._.slice(1)
+    }
+    if (exec) exec.apply(null, args)
     else help(command)
   } catch (e) {
     console.log('Error thrown: ', e)
     help(command, subcommand)
   }
 }
-
-// console.log('co: ', DataApiClient)

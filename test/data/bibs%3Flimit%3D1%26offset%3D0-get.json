@@ -1,0 +1,530 @@
+{
+  "data": [
+    {
+      "id": "19477141",
+      "nyplSource": "sierra-nypl",
+      "nyplType": "bib",
+      "updatedDate": "2012-03-08T23:39:37-05:00",
+      "createdDate": "2012-01-06T15:12:02-05:00",
+      "deletedDate": null,
+      "deleted": false,
+      "locations": [
+        {
+          "code": "mal",
+          "name": "SASB - Service Desk Rm 315"
+        }
+      ],
+      "suppressed": false,
+      "lang": {
+        "code": "rus",
+        "name": "Russian"
+      },
+      "title": "Narod na voĭn︠i︡e : (iz zapisok voennago korrespondenta)",
+      "author": "Ks︠i︡unin, Al. (Aleks︠i︡eĭ)",
+      "materialType": {
+        "code": "a",
+        "value": "BOOK/TEXT"
+      },
+      "bibLevel": {
+        "code": "m",
+        "value": "MONOGRAPH"
+      },
+      "publishYear": 1916,
+      "catalogDate": "2012-01-06",
+      "country": {
+        "code": "ru ",
+        "name": "Russia (Federation)"
+      },
+      "normTitle": "narod na voĭn︠i︡e iz zapisok voennago korrespondenta",
+      "normAuthor": "ks︠i︡unin al aleks︠i︡eĭ",
+      "fixedFields": {
+        "24": {
+          "label": "Language",
+          "value": "rus",
+          "display": "Russian"
+        },
+        "25": {
+          "label": "Skip",
+          "value": "0",
+          "display": null
+        },
+        "26": {
+          "label": "Location",
+          "value": "mal  ",
+          "display": "SASB - Service Desk Rm 315"
+        },
+        "27": {
+          "label": "COPIES",
+          "value": "1",
+          "display": null
+        },
+        "28": {
+          "label": "Cat. Date",
+          "value": "2012-01-06",
+          "display": null
+        },
+        "29": {
+          "label": "Bib Level",
+          "value": "m",
+          "display": "MONOGRAPH"
+        },
+        "30": {
+          "label": "Material Type",
+          "value": "a",
+          "display": "BOOK/TEXT"
+        },
+        "31": {
+          "label": "Bib Code 3",
+          "value": "-",
+          "display": null
+        },
+        "80": {
+          "label": "Record Type",
+          "value": "b",
+          "display": null
+        },
+        "81": {
+          "label": "Record Number",
+          "value": "19477141",
+          "display": null
+        },
+        "83": {
+          "label": "Created Date",
+          "value": "2012-01-06T15:12:02Z",
+          "display": null
+        },
+        "84": {
+          "label": "Updated Date",
+          "value": "2012-03-08T23:39:37Z",
+          "display": null
+        },
+        "85": {
+          "label": "No. of Revisions",
+          "value": "3",
+          "display": null
+        },
+        "86": {
+          "label": "Agency",
+          "value": "1",
+          "display": null
+        },
+        "89": {
+          "label": "Country",
+          "value": "ru ",
+          "display": "Russia (Federation)"
+        },
+        "98": {
+          "label": "PDATE",
+          "value": "2012-01-07T04:04:18Z",
+          "display": null
+        },
+        "107": {
+          "label": "MARC Type",
+          "value": " ",
+          "display": null
+        }
+      },
+      "varFields": [
+        {
+          "fieldTag": "a",
+          "marcTag": "100",
+          "ind1": "1",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Ks︠i︡unin, Al."
+            },
+            {
+              "tag": "q",
+              "content": "(Aleks︠i︡eĭ)"
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "World War, 1914-1918"
+            },
+            {
+              "tag": "v",
+              "content": "Personal narratives, Russian."
+            }
+          ]
+        },
+        {
+          "fieldTag": "e",
+          "marcTag": "250",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Izd. 2. (8. tys︠i︡acha)."
+            }
+          ]
+        },
+        {
+          "fieldTag": "l",
+          "marcTag": "010",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "   43037198"
+            }
+          ]
+        },
+        {
+          "fieldTag": "l",
+          "marcTag": "035",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "(OCoLC)12065508"
+            }
+          ]
+        },
+        {
+          "fieldTag": "n",
+          "marcTag": "500",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "At head of title: Aleks︠i︡eĭ Ks︠i︡unin."
+            }
+          ]
+        },
+        {
+          "fieldTag": "o",
+          "marcTag": "001",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "12065508 ",
+          "subfields": null
+        },
+        {
+          "fieldTag": "p",
+          "marcTag": "260",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Petrograd :"
+            },
+            {
+              "tag": "b",
+              "content": "Izdanīe B.A. Suvorina,"
+            },
+            {
+              "tag": "c",
+              "content": "1916."
+            }
+          ]
+        },
+        {
+          "fieldTag": "q",
+          "marcTag": "852",
+          "ind1": "8",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "h",
+              "content": "*QGR (Ksiunin, A. Narod na voinie)"
+            }
+          ]
+        },
+        {
+          "fieldTag": "r",
+          "marcTag": "300",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "2 p. l., [vii]-viii, 242 p. ;"
+            },
+            {
+              "tag": "c",
+              "content": "21 cm."
+            }
+          ]
+        },
+        {
+          "fieldTag": "s",
+          "marcTag": "490",
+          "ind1": "1",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Biblīoteka \"Vechern︠i︡ago vremeni\""
+            }
+          ]
+        },
+        {
+          "fieldTag": "s",
+          "marcTag": "830",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Biblīoteka \"Vechern︠i︡ago vremeni.\""
+            }
+          ]
+        },
+        {
+          "fieldTag": "t",
+          "marcTag": "245",
+          "ind1": "1",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Narod na voĭn︠i︡e :"
+            },
+            {
+              "tag": "b",
+              "content": "(iz zapisok voennago korrespondenta) /"
+            },
+            {
+              "tag": "c",
+              "content": "Aleks︠i︡eĭ  Ks︠i︡unin."
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "003",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "OCoLC",
+          "subfields": null
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "005",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "20120105100250.0",
+          "subfields": null
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "008",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "850522s1916    ru            000 0 rus  camI  ",
+          "subfields": null
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "040",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "DLC"
+            },
+            {
+              "tag": "c",
+              "content": "KKU"
+            },
+            {
+              "tag": "d",
+              "content": "KKU"
+            },
+            {
+              "tag": "d",
+              "content": "OCLCQ"
+            },
+            {
+              "tag": "d",
+              "content": "OCLCG"
+            },
+            {
+              "tag": "d",
+              "content": "HIN"
+            },
+            {
+              "tag": "d",
+              "content": "NYP"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "049",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "NYPP"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "050",
+          "ind1": "0",
+          "ind2": "4",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "D640"
+            },
+            {
+              "tag": "b",
+              "content": ".K94 1916"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "908",
+          "ind1": "0",
+          "ind2": "4",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "D640"
+            },
+            {
+              "tag": "b",
+              "content": ".K94 1916"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "901",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "TY"
+            },
+            {
+              "tag": "b",
+              "content": "BARCO"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "901",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "MARS"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "946",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "m"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "949",
+          "ind1": " ",
+          "ind2": "1",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "*QGR (Ksiunin, A. Narod na voinie)"
+            },
+            {
+              "tag": "l",
+              "content": "mall2"
+            },
+            {
+              "tag": "i",
+              "content": "33433094635145"
+            },
+            {
+              "tag": "t",
+              "content": "055"
+            },
+            {
+              "tag": "s",
+              "content": "-"
+            },
+            {
+              "tag": "h",
+              "content": "33"
+            },
+            {
+              "tag": "o",
+              "content": "1"
+            },
+            {
+              "tag": "v",
+              "content": "TY/BARCO"
+            },
+            {
+              "tag": "z",
+              "content": "8528"
+            }
+          ]
+        },
+        {
+          "fieldTag": "_",
+          "marcTag": null,
+          "ind1": null,
+          "ind2": null,
+          "content": "00000cam  2200325I  4500",
+          "subfields": null
+        }
+      ]
+    }
+  ],
+  "count": 1,
+  "statusCode": 200,
+  "debugInfo": []
+}

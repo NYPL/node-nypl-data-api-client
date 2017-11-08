@@ -12,42 +12,34 @@ npm i @nypl/nypl-data-api-client --save
 
 ## Usage
 
+Initialization
+
 ```js
 const NyplClient = require('@nypl/nypl-data-api-client')
-var client = new NyplClient({ base_url: 'http://example.com/api/v0.1/' })
+var client = new NyplClient({ base_url: 'http://[FQDN].com/api/v0.1/' })
 ```
 
-Client options include:
- - **base_url**: Base URL for the api (e.g. 'http://example.com/api/v0.1/'). (Alternatively use NYPL_API_BASE_URL)
- - **oauth_key**: OAUTH key (Alternatively use NYPL_OAUTH_KEY)
- - **oauth_secret**: OAUTH secret (Alternatively use NYPL_OAUTH_SECRET)
- - **oauth_url**: OAUTH URL. (Alternatively use NYPL_OAUTH_URL)
- - **log_level**: Set [log level](https://github.com/pimterry/loglevel) (i.e. info, error, warn, debug). Default env.LOG_LEVEL or 'error'
+### Docs
 
-Note that you must specify URL base for the api via `base_url` config (as above) or via `NYPL_API_BASE_URL` env variable. The value should include everything from the protocol to the version number in the path (as above).
-.
+See [usage.md](usage.md) for complete documentation of Client methods and use.
 
-### client.get (path, opts)
+(Usage doc is generated via `./node_modules/.bin/jsdoc2md lib/client.js > usage.md`.)
 
-Returns a Promise that resolves content at `path` (e.g. 'current-schemas/Item')
-
-Params:
- - **path**: String path to retrieve
- - **opts**: Optional options hash that may include:
-   - **cache**: Boolean, default `true`. Controls whether or not response is cached (using default configuration of [node-cache](https://www.npmjs.com/package/node-cache)
-   - **authenticate**: Boolean, default `true`. Controls whether or not to OAUTH first.
-   - **token_expiration_retries**: Int, default 1. Controls how many times the client will attempt to fetch a new OAUTH token if cached token seems to have expired.
+### Examples
 
 To authenticate and fetch a bib (all GETs authenticate first, by default):
+
 ```js
-client.get('bibs/sierra-nypl/17746307').then((bib) => {
+client.get('bibs/sierra-nypl/17746307').then((resp) => {
+  let bib = resp.data
   console.log('Got bib: ' + bib.title)
 }).catch((e) => console.error('Error authenticating or fetching bib: ', e))
 ```
 
 To get the "Item" stream schema, which doesn't require authentication:
 ```js
-client.get('current-schemas/Item', { authenticate: false }).then((schema) => {
+client.get('current-schemas/Item', { authenticate: false }).then((resp) => {
+  let schema = resp.data
   // Now we can build an avro encoder by parsing the escaped "schema" prop:
   var avroType = require('avsc').parse(JSON.parse(schema.schema))
 })
@@ -55,7 +47,8 @@ client.get('current-schemas/Item', { authenticate: false }).then((schema) => {
 
 To get patron id `12345678` (note you must auth with an account that has the 'read:patron' role):
 ```js
-client.get('patrons/12345678').then((patron) => {
+client.get('patrons/12345678').then((resp) => {
+  let patron = resp.data
   if (!patron) console.error('Could not find patron')
   else {
     var pType = Object.keys(patron.fixedFields).map((key) => patron.fixedFields[key])
@@ -72,18 +65,7 @@ client.get('patrons/12345678').then((patron) => {
 })
 ```
 
-
-### client.post (path, data, headers)
-
-Returns a Promise that resolves after submitting `data` to `path`
-
-Params:
- - **path**: String path to retrieve
- - **data**: Object/data you want to POST to the endpoint
- - **headers**: Object representing headers to send to the endpoint. 
-   By default, the `Authorization` and `Content-type: application/json` headers are added.
-
-For example, to post a new "TestSchema" schema:
+To POST a new "TestSchema" schema:
 ```js
 client.post('schemas/TestSchema', '{ "name": "TestSchema", "type": "record", "fields": [ ... ] }')
   .then((resp) => {
@@ -122,8 +104,14 @@ nypl-data-api schema post [name] [jsonfile]
 
 ## Testing
 
-1.  Pull this repository
-1.  Copy `./.env.example` to `./.env` and plug in values
+All tests work offline with `request` and `oauth` stubs:
+
 ```js
 npm test
+```
+
+If you want to run the test suite against real infrastructure, you can do so as follows:
+
+```js
+USE_CREDENTIALS=[credentials file, e.g. '.env'] npm test
 ```

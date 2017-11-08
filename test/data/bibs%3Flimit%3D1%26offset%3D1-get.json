@@ -1,0 +1,658 @@
+{
+  "data": [
+    {
+      "id": "17057857",
+      "nyplSource": "sierra-nypl",
+      "nyplType": "bib",
+      "updatedDate": "2012-07-17T12:49:53-04:00",
+      "createdDate": "2008-12-22T22:20:14-05:00",
+      "deletedDate": null,
+      "deleted": false,
+      "locations": [
+        {
+          "code": "mag",
+          "name": "SASB - Milstein Division Rm 121"
+        }
+      ],
+      "suppressed": false,
+      "lang": {
+        "code": "spa",
+        "name": "Spanish"
+      },
+      "title": "Diario de un viaje a California, 1848-1849",
+      "author": "Pérez Rosales, Vicente, 1807-1886.",
+      "materialType": {
+        "code": "a",
+        "value": "BOOK/TEXT"
+      },
+      "bibLevel": {
+        "code": "m",
+        "value": "MONOGRAPH"
+      },
+      "publishYear": 2007,
+      "catalogDate": "2008-11-12",
+      "country": {
+        "code": "cl ",
+        "name": "Chile"
+      },
+      "normTitle": "diario de un viaje a california 1848 1849",
+      "normAuthor": "pérez rosales vicente 1807 1886",
+      "fixedFields": {
+        "24": {
+          "label": "Language",
+          "value": "spa",
+          "display": "Spanish"
+        },
+        "25": {
+          "label": "Skip",
+          "value": "0",
+          "display": null
+        },
+        "26": {
+          "label": "Location",
+          "value": "mag  ",
+          "display": "SASB - Milstein Division Rm 121"
+        },
+        "27": {
+          "label": "COPIES",
+          "value": "1",
+          "display": null
+        },
+        "28": {
+          "label": "Cat. Date",
+          "value": "2008-11-12",
+          "display": null
+        },
+        "29": {
+          "label": "Bib Level",
+          "value": "m",
+          "display": "MONOGRAPH"
+        },
+        "30": {
+          "label": "Material Type",
+          "value": "a",
+          "display": "BOOK/TEXT"
+        },
+        "31": {
+          "label": "Bib Code 3",
+          "value": "-",
+          "display": null
+        },
+        "80": {
+          "label": "Record Type",
+          "value": "b",
+          "display": null
+        },
+        "81": {
+          "label": "Record Number",
+          "value": "17057857",
+          "display": null
+        },
+        "83": {
+          "label": "Created Date",
+          "value": "2008-12-22T22:20:14Z",
+          "display": null
+        },
+        "84": {
+          "label": "Updated Date",
+          "value": "2012-07-17T12:49:53Z",
+          "display": null
+        },
+        "85": {
+          "label": "No. of Revisions",
+          "value": "2",
+          "display": null
+        },
+        "86": {
+          "label": "Agency",
+          "value": "1",
+          "display": null
+        },
+        "89": {
+          "label": "Country",
+          "value": "cl ",
+          "display": "Chile"
+        },
+        "98": {
+          "label": "PDATE",
+          "value": "2012-06-05T22:26:38Z",
+          "display": null
+        },
+        "107": {
+          "label": "MARC Type",
+          "value": " ",
+          "display": null
+        }
+      },
+      "varFields": [
+        {
+          "fieldTag": "a",
+          "marcTag": "100",
+          "ind1": "1",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Pérez Rosales, Vicente,"
+            },
+            {
+              "tag": "d",
+              "content": "1807-1886."
+            }
+          ]
+        },
+        {
+          "fieldTag": "b",
+          "marcTag": "700",
+          "ind1": "1",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Latorre, Guillermo,"
+            },
+            {
+              "tag": "d",
+              "content": "1936-"
+            }
+          ]
+        },
+        {
+          "fieldTag": "b",
+          "marcTag": "700",
+          "ind1": "1",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Martinez, Maria-Ester,"
+            },
+            {
+              "tag": "d",
+              "content": "1939-"
+            }
+          ]
+        },
+        {
+          "fieldTag": "c",
+          "marcTag": "852",
+          "ind1": "8",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "h",
+              "content": "IXG 08-7020"
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "600",
+          "ind1": "1",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Pérez Rosales, Vicente,"
+            },
+            {
+              "tag": "d",
+              "content": "1807-1886"
+            },
+            {
+              "tag": "v",
+              "content": "Diaries."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "651",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "California"
+            },
+            {
+              "tag": "x",
+              "content": "Description and travel."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "651",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "California"
+            },
+            {
+              "tag": "x",
+              "content": "Gold discoveries."
+            }
+          ]
+        },
+        {
+          "fieldTag": "e",
+          "marcTag": "250",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "1. ed."
+            }
+          ]
+        },
+        {
+          "fieldTag": "i",
+          "marcTag": "020",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "9789568245245"
+            }
+          ]
+        },
+        {
+          "fieldTag": "i",
+          "marcTag": "020",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "9568245243"
+            }
+          ]
+        },
+        {
+          "fieldTag": "l",
+          "marcTag": "035",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "(OCoLC)227150385"
+            }
+          ]
+        },
+        {
+          "fieldTag": "n",
+          "marcTag": "504",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Includes bibliographical references."
+            }
+          ]
+        },
+        {
+          "fieldTag": "o",
+          "marcTag": "001",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "227150385",
+          "subfields": null
+        },
+        {
+          "fieldTag": "p",
+          "marcTag": "260",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Santiago [Chile] :"
+            },
+            {
+              "tag": "b",
+              "content": "Tajamar Editores,"
+            },
+            {
+              "tag": "c",
+              "content": "2007."
+            }
+          ]
+        },
+        {
+          "fieldTag": "q",
+          "marcTag": "852",
+          "ind1": "8",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "h",
+              "content": "IXG 08-7020"
+            }
+          ]
+        },
+        {
+          "fieldTag": "r",
+          "marcTag": "300",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "174 p. :"
+            },
+            {
+              "tag": "b",
+              "content": "ill. ;"
+            },
+            {
+              "tag": "c",
+              "content": "23 cm."
+            }
+          ]
+        },
+        {
+          "fieldTag": "s",
+          "marcTag": "490",
+          "ind1": "1",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Colección Alameda"
+            }
+          ]
+        },
+        {
+          "fieldTag": "s",
+          "marcTag": "830",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Colección Alameda (Providencia, Santiago, Chile)"
+            }
+          ]
+        },
+        {
+          "fieldTag": "t",
+          "marcTag": "245",
+          "ind1": "1",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Diario de un viaje a California, 1848-1849 /"
+            },
+            {
+              "tag": "c",
+              "content": "Vicente Pérez Rosales ; edición de Guillermo Latorre y María Ester Martínez."
+            }
+          ]
+        },
+        {
+          "fieldTag": "v",
+          "marcTag": "959",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": ".b98635207"
+            },
+            {
+              "tag": "b",
+              "content": "11-12-08"
+            },
+            {
+              "tag": "c",
+              "content": "10-28-08"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "003",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "OCoLC",
+          "subfields": null
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "005",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "20081110140934.0",
+          "subfields": null
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "008",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "060406s2007    cl a     b    000 0 spa  camIa ",
+          "subfields": null
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "040",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "COO"
+            },
+            {
+              "tag": "c",
+              "content": "COO"
+            },
+            {
+              "tag": "d",
+              "content": "IQU"
+            },
+            {
+              "tag": "d",
+              "content": "OCLCG"
+            },
+            {
+              "tag": "d",
+              "content": "IXA"
+            },
+            {
+              "tag": "d",
+              "content": "NYP"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "043",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "n-us-ca"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "049",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "NYPP"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "050",
+          "ind1": " ",
+          "ind2": "4",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "F865.P437"
+            },
+            {
+              "tag": "b",
+              "content": "P43 2007"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "908",
+          "ind1": " ",
+          "ind2": "4",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "F865.P437"
+            },
+            {
+              "tag": "b",
+              "content": "P43 2007"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "082",
+          "ind1": "0",
+          "ind2": "4",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "917.3"
+            },
+            {
+              "tag": "2",
+              "content": "20"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "901",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "b",
+              "content": "hh"
+            },
+            {
+              "tag": "c",
+              "content": "cmc/elt"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "946",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "m"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "997",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "hh"
+            },
+            {
+              "tag": "b",
+              "content": "11-12-08"
+            },
+            {
+              "tag": "c",
+              "content": "m"
+            },
+            {
+              "tag": "d",
+              "content": "a"
+            },
+            {
+              "tag": "e",
+              "content": "-"
+            },
+            {
+              "tag": "f",
+              "content": "spa"
+            },
+            {
+              "tag": "g",
+              "content": "cl "
+            },
+            {
+              "tag": "h",
+              "content": "0"
+            }
+          ]
+        },
+        {
+          "fieldTag": "_",
+          "marcTag": null,
+          "ind1": null,
+          "ind2": null,
+          "content": "00000cam  2200385Ia 4500",
+          "subfields": null
+        }
+      ]
+    }
+  ],
+  "count": 1,
+  "statusCode": 200,
+  "debugInfo": []
+}

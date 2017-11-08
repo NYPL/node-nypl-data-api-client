@@ -1,19 +1,21 @@
-/* global describe it */
-
-const assert = require('assert')
-const Client = require('../index')
+let client = null
 
 describe('Bib test', function () {
-  this.timeout(10000)
+  beforeEach(() => {
+    client = require('./make-test-client')()
+  })
+
+  afterEach(() => {
+    client = null
+  })
 
   describe('Bibs endpoint', function () {
     it('should return a Bib', function () {
-      var client = new Client()
       return client.get('bibs/sierra-nypl/17746307', { authenticate: true })
-        .then((bib) => {
-          assert(bib)
-          assert.equal(bib.id, 17746307)
-          assert.equal(bib.nyplSource, 'sierra-nypl')
+        .then((resp) => {
+          expect(resp.data).to.be.a('object')
+          expect(resp.data).to.have.a.property('id', '17746307')
+          expect(resp.data).to.have.a.property('nyplSource', 'sierra-nypl')
         })
     })
   })
