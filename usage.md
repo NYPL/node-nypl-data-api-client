@@ -9,7 +9,8 @@
 
 <dl>
 <dt><a href="#ClientConstructorOptions">ClientConstructorOptions</a> : <code>Object</code></dt>
-<dd></dd>
+<dd><p>Note that <code>oauth_url</code> is expected to be a <em>base</em> URL, from which authorization &amp; token endpoints are derived internally. As such, the <code>oauth_url</code> should end in &quot;.org/&quot; in most cases.</p>
+</dd>
 <dt><a href="#RequestOptions">RequestOptions</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
@@ -77,6 +78,8 @@ DELETE an object from an api endpoint
 <a name="ClientConstructorOptions"></a>
 
 ## ClientConstructorOptions : <code>Object</code>
+Note that `oauth_url` is expected to be a *base* URL, from which authorization & token endpoints are derived internally. As such, the `oauth_url` should end in ".org/" in most cases.
+
 **Kind**: global typedef  
 **Properties**
 
@@ -85,7 +88,7 @@ DELETE an object from an api endpoint
 | base_url | <code>string</code> | Base URL for API (e.g. 'https://[FQDN]/api/v0.1/').    If missing, client will check process.env.NYPL_API_BASE_URL |
 | oauth_key | <code>string</code> | OAUTH key. (If missing, client will use    process.env.NYPL_OAUTH_KEY) |
 | oauth_secret | <code>string</code> | OAUTH secret. (If missing, client will use    process.env.NYPL_OAUTH_SECRET) |
-| oauth_url | <code>string</code> | OAUTH URL. (If missing, client will use    process.env.NYPL_OAUTH_URL) |
+| oauth_url | <code>string</code> | OAUTH base URL. This is used to build token    endpoints. Normally, should end in ".org/" (If missing, client will use    process.env.NYPL_OAUTH_URL) |
 | log_level | <code>string</code> | Set [log level](https://github.com/pimterry/loglevel)    (i.e. info, error, warn, debug). Default env.LOG_LEVEL or 'error' |
 
 <a name="RequestOptions"></a>

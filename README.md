@@ -12,11 +12,16 @@ npm i @nypl/nypl-data-api-client --save
 
 ## Usage
 
-Initialization
+Initialize a client (see [ClientConstructorOptions](/usage.md#ClientConstructorOptions)):
 
 ```js
 const NyplClient = require('@nypl/nypl-data-api-client')
-var client = new NyplClient({ base_url: 'http://[FQDN].com/api/v0.1/' })
+var client = new NyplClient({ 
+  base_url: 'http://[FQDN].com/api/v0.1/',
+  oauth_key: 'oauth-key',
+  oauth_secret 'top-secret-oauth-secret',
+  oauth_url: 'https://[fqdn]/'
+})
 ```
 
 ### Docs
