@@ -10,11 +10,12 @@ const argv = require('minimist')(process.argv.slice(2))
 const DataApiClient = require('../')
 require('dotenv').config()
 
-var client = new DataApiClient()
+const log_level = argv.log_level || 'error'
+
+var client = new DataApiClient({ log_level })
 
 var doPost = function (path, content) {
-  console.log('client.post(' + path + ', ', JSON.stringify(content) + ')')
-  client.post(path, JSON.stringify(content))
+  client.post(path, content)
     .then((resp) => {
       console.log(`Done writing ${path}`)
     }).catch((e) => {
@@ -23,10 +24,9 @@ var doPost = function (path, content) {
 }
 
 var doGet = function (path) {
-  console.log('get path: ', path)
   client.get(path)
     .then((resp) => {
-      console.log(JSON.stringify(resp, null, 2))
+      console.log('Got response: ', JSON.stringify(resp, null, 2))
     }).catch((e) => {
       console.error('Error: ', e)
     })
@@ -137,7 +137,7 @@ else if (command === 'help') {
   help(_command, _subcommand)
 } else if (command) {
   try {
-    let exec = commandHash[command][subcommand]
+    let exec = (commandHash[command][subcommand] || {}).exec
     let args = []
     if (!exec) {
       exec = commandHash[command].exec
