@@ -67,7 +67,7 @@ client.get('patrons/12345678').then((resp) => {
 
 To POST a new "TestSchema" schema:
 ```js
-client.post('schemas/TestSchema', '{ "name": "TestSchema", "type": "record", "fields": [ ... ] }')
+client.post('schemas/TestSchema', { name: "TestSchema", type: "record", fields: [ ... ] })
   .then((resp) => {
     if (JSON.parse(resp).data.stream !== 'TestSchema') throw Error('Error creating schema...')
   })
