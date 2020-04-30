@@ -80,10 +80,18 @@ client.post('schemas/TestSchema', { name: "TestSchema", type: "record", fields: 
 
 ## CLI
 
-A small CLI exists for common tasks. Run the following for a list of commands:
+A small CLI exists for common tasks.
+
+If installed globally (i.e. `npm i -g @nypl/nypl-data-api-client`), it can be run as follows:
 
 ```js
 nypl-data-api
+```
+
+For local installs, it can be run via local `node_modules`:
+
+```js
+./node_modules/.bin/nypl-data-api
 ```
 
 To get help with any command run:
