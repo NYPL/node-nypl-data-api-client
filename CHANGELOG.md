@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v1.0.1 - 2020-05-06
+ - Dependency updates to address vulnerabilities
+
 ## v1.0.0 - 2017-11-08
 
  - Attempt to refresh oauth token if found invalid for authenticated
