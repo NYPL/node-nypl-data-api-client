@@ -10,23 +10,36 @@ const argv = require('minimist')(process.argv.slice(2))
 const DataApiClient = require('../')
 require('dotenv').config()
 
-var client = new DataApiClient()
+const log_level = argv.log_level || 'error'
+
+var client = new DataApiClient({ log_level })
 
 var doPost = function (path, content) {
-  console.log('client.post(' + path + ', ', JSON.stringify(content) + ')')
-  client.post(path, JSON.stringify(content))
+
+  if ((typeof content) != 'object') {
+    content = JSON.parse(content)
+  }
+
+  client.post(path, content)
     .then((resp) => {
-      console.log(`Done writing ${path}`)
+      console.log(`Done POSTing to ${path}`)
+      console.log(`Response: ${JSON.stringify(resp, null, 2)}`)
     }).catch((e) => {
       console.error('Error: ', e)
     })
 }
 
 var doGet = function (path) {
-  console.log('get path: ', path)
+  if (!path) throw new Error('Path required')
+
   client.get(path)
     .then((resp) => {
-      console.log(JSON.stringify(resp, null, 2))
+      let formattedResponse = resp
+      if (typeof resp !== 'string') {
+        // If JSON, format as json, otherwise print as-is:
+        try { Object.keys(resp).length >= 1 && (formattedResponse = JSON.stringify(resp, null, 2)) } catch(e) { }
+      }
+      console.log('Got response: \n', formattedResponse)
     }).catch((e) => {
       console.error('Error: ', e)
     })
@@ -48,6 +61,30 @@ var showDiff = function (one, two) {
     process.stderr.write(part.value[color])
   })
   console.log()
+}
+
+function promptToPost (path, content) {
+  if (!content) throw new Error('Posting requires content to post')
+
+  try {
+    // Assume all posted bodies are json
+    console.log("content: ", content)
+    content = JSON.parse(content)
+
+  } catch (e) {
+    throw new Error('Content to POST does not appear to be JSON. Only JSON supported currently.')
+  }
+
+  console.log('POSTING')
+  console.log(`  To endpoint: ${process.env.NYPL_API_BASE_URL}${path}:`)
+  console.log(`  Using credentials: ${process.env.NYPL_OAUTH_KEY}@${process.env.NYPL_OAUTH_URL}`)
+  console.log(`${JSON.stringify(content, null, 2)}`)
+  console.log('Proceed?')
+  prompt.start()
+  prompt.get('y/n', (e, result) => {
+    if (result['y/n'] === 'y') doPost(path, content)
+    else console.log('Aborting.')
+  })
 }
 
 function schemaPost () {
@@ -91,15 +128,26 @@ function schemaPost () {
 
 const commandHash = {
   schema: {
-    post: {
-      description: 'Post a version of a schema',
-      usage: 'nypl-data-api schema post [name] [jsonfile]',
-      exec: schemaPost
+    description: 'Specialized commands for interacting with schemas',
+    subcommands: {
+      post: {
+        description: 'Post a version of a schema. Will prepare request and confirm before proceeding.',
+        usage: 'nypl-data-api schema post [name] [jsonfilepath]',
+        examples: [ 'nypl-data-api schema post Bib ./new-bib-schema.json' ],
+        exec: schemaPost
+      }
     }
   },
+  post: {
+    description: 'Post JSON to an arbitrary endpoint. Will prepare request and confirm before proceeding.',
+    usage: 'nypl-data-api post [path] [inlinejson]',
+    examples: [ 'nypl-data-api post recap/checkin-requests \'{ "foo": "bar" }\'' ],
+    exec: (argv.y ? doPost : promptToPost)
+  },
   get: {
-    description: 'Get arbitrary endpoint',
+    description: 'Get arbitrary endpoint.',
     usage: 'nypl-data-api get [path]',
+    examples: [ 'nypl-data-api schema get bibs' ],
     exec: doGet
   }
 }
@@ -112,7 +160,7 @@ function help (command, subcommand) {
   } else if (command && commandHash[command]) {
     if (commandHash[command].exec) commandSpec = commandHash[command]
     else {
-      let subCommands = Object.keys(commandHash[command])
+      let subCommands = Object.keys(commandHash[command].subcommands)
       console.log('Available subcommands: \n  ' + subCommands.join('\n  '))
     }
   } else {
@@ -121,9 +169,15 @@ function help (command, subcommand) {
   }
 
   if (commandSpec) {
-    console.log('Help: ' + command + (subcommand ? ' ' + subcommand : ''))
-    console.log('Description: ' + commandSpec.description)
-    console.log('Usage: ' + commandSpec.usage)
+    console.log('Showing help for `' + command + (subcommand ? ' ' + subcommand : '') + '`')
+    console.log(`Description: ${commandSpec.description}`)
+    console.log(`Usage: ${commandSpec.usage}`)
+    if (commandSpec.examples) {
+      console.log('Examples:')
+      commandSpec.examples.forEach((example) => {
+        console.log(` $ ${example}`)
+      })
+    }
   }
 }
 
@@ -137,16 +191,27 @@ else if (command === 'help') {
   help(_command, _subcommand)
 } else if (command) {
   try {
-    let exec = commandHash[command][subcommand]
-    let args = []
-    if (!exec) {
-      exec = commandHash[command].exec
+    // Establish args to be passed to command:
+    let args = argv._.slice(1)
+
+    // Establish which command group we'll be executing:
+    let commandGroup = commandHash[command]
+
+    // If subcommand selected, use that:
+    if (subcommand && commandGroup.subcommands && commandGroup.subcommands[subcommand]) {
+      commandGroup = commandGroup.subcommands[subcommand]
       args = argv._.slice(1)
     }
+
+    // Execute the command
+    exec = commandGroup.exec
     if (exec) exec.apply(null, args)
     else help(command)
+
   } catch (e) {
     console.log('Error thrown: ', e)
+
+    // Show relevant help:
     help(command, subcommand)
   }
 }

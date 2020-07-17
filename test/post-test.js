@@ -28,6 +28,17 @@ describe('Client POST method', function () {
           expect(resp).to.be.a('object')
         })
     })
+
+    it('should fail if supplied body is plaintext', function () {
+      let call = client.post(`schemas/${testSchema.name}`, JSON.stringify(testSchema))
+      return expect(call).to.be.rejected
+    })
+
+    // A null/empty body should be accepted as valid if options.json===true
+    it('should succeed if supplied body is empty', function () {
+      let call = client.post(`schemas/${testSchema.name}`)
+      return expect(call).to.be.fulfilled
+    })
   })
 
   describe('when config.json=false', function () {
