@@ -15,8 +15,7 @@ const log_level = argv.log_level || 'error'
 var client = new DataApiClient({ log_level })
 
 var doPost = function (path, content) {
-
-  if ((typeof content) != 'object') {
+  if ((typeof content) !== 'object') {
     content = JSON.parse(content)
   }
 
@@ -37,7 +36,7 @@ var doGet = function (path) {
       let formattedResponse = resp
       if (typeof resp !== 'string') {
         // If JSON, format as json, otherwise print as-is:
-        try { Object.keys(resp).length >= 1 && (formattedResponse = JSON.stringify(resp, null, 2)) } catch(e) { }
+        try { Object.keys(resp).length >= 1 && (formattedResponse = JSON.stringify(resp, null, 2)) } catch (e) { }
       }
       console.log('Got response: \n', formattedResponse)
     }).catch((e) => {
@@ -68,9 +67,8 @@ function promptToPost (path, content) {
 
   try {
     // Assume all posted bodies are json
-    console.log("content: ", content)
+    console.log('content: ', content)
     content = JSON.parse(content)
-
   } catch (e) {
     throw new Error('Content to POST does not appear to be JSON. Only JSON supported currently.')
   }
@@ -204,10 +202,9 @@ else if (command === 'help') {
     }
 
     // Execute the command
-    exec = commandGroup.exec
+    const exec = commandGroup.exec
     if (exec) exec.apply(null, args)
     else help(command)
-
   } catch (e) {
     console.log('Error thrown: ', e)
 

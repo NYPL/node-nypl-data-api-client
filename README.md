@@ -119,8 +119,9 @@ nypl-data-api schema post [name] [jsonfile]
 
 1. Cut feature branch from `master`
 2. After review, merge to `master`
-3. Bump version in `package.json` and `git tag -a v[version]`
-4. `npm publish`
+3. Bump version in `package.json` & note changes in `CHANGELOG.md`
+4. `git tag -a v[version]`
+5. `npm publish`
 
 ## Testing
 
