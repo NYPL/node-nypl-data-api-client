@@ -115,6 +115,13 @@ Run the following to upload the content of the given jsonfile to `schemas/[name]
 nypl-data-api schema post [name] [jsonfile]
 ```
 
+## Contributing
+
+1. Cut feature branch from `master`
+2. After review, merge to `master`
+3. Bump version in `package.json` and `git tag -a v[version]`
+4. `npm publish`
+
 ## Testing
 
 All tests work offline with `request` and `oauth` stubs:
