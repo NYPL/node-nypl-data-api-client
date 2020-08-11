@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v1.0.4 - 2020-08-11
+ - Dependency updates to address vulnerabilities
+
 ## v1.0.3 - 2020-07-17
  - Adds better CLI support for POSTing things
 

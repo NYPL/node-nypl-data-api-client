@@ -1,6 +1,6 @@
 {
   "name": "@nypl/nypl-data-api-client",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Simple client for interacting with NYPL's internal data api",
   "main": "index.js",
   "scripts": {
