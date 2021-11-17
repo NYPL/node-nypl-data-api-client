@@ -1,0 +1,24 @@
+{
+  "data": {
+    "id": 1234,
+    "jobId": "1106896193cb7216d96",
+    "createdDate": "2021-11-16T10:17:06-05:00",
+    "updatedDate": "2021-11-16T10:17:12-05:00",
+    "success": false,
+    "processed": true,
+    "patron": "987654321",
+    "nyplSource": "sierra-nypl",
+    "requestType": "hold",
+    "recordType": "i",
+    "record": "15371503",
+    "pickupLocation": "",
+    "deliveryLocation": "NH",
+    "neededBy": "2022-11-16T00:00:00-05:00",
+    "numberOfCopies": 1,
+    "docDeliveryData": null,
+    "error": null
+  },
+  "count": 1,
+  "statusCode": 200,
+  "debugInfo": []
+}
