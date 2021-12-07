@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.0.5 - 2021-12-06
+ - Add support for PATCH
+ - Improved schema-post CLI util
+ - Improved documentation around authentication
+
 ## v1.0.4 - 2020-08-11
  - Dependency updates to address vulnerabilities
 
