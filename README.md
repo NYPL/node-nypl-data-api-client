@@ -100,12 +100,14 @@ To get help with any command run:
 nypl-data-api help [command]
 ```
 
-Note that the lib draws from the following environment variables, which you can place in `.env`:
+Note that the cli uses the following environment variables, read by default from `.env`:
 
  - NYPL_API_BASE_URL
  - NYPL_OAUTH_KEY
  - NYPL_OAUTH_SECRET
  - NYPL_OAUTH_URL
+
+See `.env.example` for a sample `.env` file. To specify a different `.env`, use the `--envfile` param (e.g. `--envfile config/qa.env`)
 
 ### Schema post
 

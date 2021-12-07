@@ -6,9 +6,14 @@ const jsdiff = require('diff')
 const avsc = require('avsc')
 require('colors')
 
-const argv = require('minimist')(process.argv.slice(2))
+const argv = require('minimist')(process.argv.slice(2), {
+  default: {
+    envfile: '.env'
+  }
+})
+
 const DataApiClient = require('../')
-require('dotenv').config()
+require('dotenv').config({ path: argv.envfile })
 
 const log_level = argv.log_level || 'error'
 
@@ -22,6 +27,20 @@ var doPost = function (path, content) {
   client.post(path, content)
     .then((resp) => {
       console.log(`Done POSTing to ${path}`)
+      console.log(`Response: ${JSON.stringify(resp, null, 2)}`)
+    }).catch((e) => {
+      console.error('Error: ', e)
+    })
+}
+
+var doPatch = function (path, content) {
+  if ((typeof content) !== 'object') {
+    content = JSON.parse(content)
+  }
+
+  client.patch(path, content)
+    .then((resp) => {
+      console.log(`Done PATCHing ${path}`)
       console.log(`Response: ${JSON.stringify(resp, null, 2)}`)
     }).catch((e) => {
       console.error('Error: ', e)
@@ -62,25 +81,27 @@ var showDiff = function (one, two) {
   console.log()
 }
 
-function promptToPost (path, content) {
-  if (!content) throw new Error('Posting requires content to post')
+function promptTo (method, path, content, cb) {
+  if (argv.content) {
+    content = fs.readFileSync(argv.content, 'utf8')
+  }
+  if (!content) throw new Error(`${method}ing requires content to ${method}`)
 
   try {
-    // Assume all posted bodies are json
-    console.log('content: ', content)
+    // Assume all posted/patched bodies are json
     content = JSON.parse(content)
   } catch (e) {
-    throw new Error('Content to POST does not appear to be JSON. Only JSON supported currently.')
+    throw new Error(`Content to ${method} does not appear to be JSON. Only JSON supported currently.`)
   }
 
-  console.log('POSTING')
+  console.log(`${method}ing`)
   console.log(`  To endpoint: ${process.env.NYPL_API_BASE_URL}${path}:`)
   console.log(`  Using credentials: ${process.env.NYPL_OAUTH_KEY}@${process.env.NYPL_OAUTH_URL}`)
   console.log(`${JSON.stringify(content, null, 2)}`)
   console.log('Proceed?')
   prompt.start()
   prompt.get('y/n', (e, result) => {
-    if (result['y/n'] === 'y') doPost(path, content)
+    if (result['y/n'] === 'y') cb(path, content)
     else console.log('Aborting.')
   })
 }
@@ -97,10 +118,11 @@ function schemaPost () {
     if (previous && next) {
       showDiff(previous, next)
     }
-    console.log('Really upload?')
+    const path = `schemas/${name}`
+    console.log(`Really upload to ${process.env.NYPL_API_BASE_URL}${path} ?`)
     prompt.start()
     prompt.get('y/n', (e, result) => {
-      if (result['y/n'] === 'y') doPost(`schemas/${name}`, next)
+      if (result['y/n'] === 'y') doPost(path, next)
       else console.log('Aborting.')
     })
   }
@@ -140,7 +162,13 @@ const commandHash = {
     description: 'Post JSON to an arbitrary endpoint. Will prepare request and confirm before proceeding.',
     usage: 'nypl-data-api post [path] [inlinejson]',
     examples: [ 'nypl-data-api post recap/checkin-requests \'{ "foo": "bar" }\'' ],
-    exec: (argv.y ? doPost : promptToPost)
+    exec: (argv.y ? doPost : (path, content) => promptTo('POST', path, content, doPost))
+  },
+  patch: {
+    description: 'Patch JSON to an arbitrary endpoint. Will prepare request and confirm before proceeding.',
+    usage: 'nypl-data-api patch [path] [inlinejson]',
+    examples: [ 'nypl-data-api patch hold-requests \'{ "success": false }\'' ],
+    exec: (argv.y ? doPatch : (path, content) => promptTo('PATCH', path, content, doPatch))
   },
   get: {
     description: 'Get arbitrary endpoint.',
