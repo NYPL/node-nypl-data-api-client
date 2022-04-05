@@ -119,8 +119,8 @@ nypl-data-api schema post [name] [jsonfile]
 
 ## Contributing
 
-1. Cut feature branch from `master`
-2. After review, merge to `master`
+1. Cut feature branch from `main`
+2. After review, merge to `main`
 3. Bump version in `package.json` & note changes in `CHANGELOG.md`
 4. `git tag -a v[version]`
 5. `npm publish`
