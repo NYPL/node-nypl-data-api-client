@@ -31,11 +31,19 @@ describe('Client cache', function () {
     it('should cache things', function () {
       // Call the same endpoint in rapid succession with caching ENABLED:
       let apiCall = () => client.get('bibs/sierra-nypl/17746307', { cache: true })
-      return apiCall()
-        .then(apiCall)
-        .then(() => {
+      return Promise.all(new Array(3).fill(apiCall()))
+        .then((responses) => {
           // Confirm the client's private _doRequest method was called only once:
           expect(httpRequestSpy.callCount).to.equal(1)
+
+          // Check structure of responses:
+          expect(responses).to.be.a('array')
+          expect(responses).to.have.lengthOf(3)
+          responses.forEach((response) => {
+            expect(response).to.be.a('object')
+            expect(response.data).to.be.a('object')
+            expect(response.data.id).to.be.eq('17746307')
+          })
         })
     })
   })

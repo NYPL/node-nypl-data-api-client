@@ -1,6 +1,6 @@
 {
   "name": "@nypl/nypl-data-api-client",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Simple client for interacting with NYPL's internal data api",
   "main": "index.js",
   "scripts": {
@@ -9,13 +9,14 @@
   "author": "@nonword",
   "license": "ISC",
   "dependencies": {
+    "@nypl/scsb-rest-client": "^1.0.6",
     "avsc": "^5.0.2",
     "colors": "^1.1.2",
     "diff": "^3.5.0",
     "dotenv": "^4.0.0",
     "loglevel": "^1.4.1",
     "loglevel-plugin-prefix": "^0.5.3",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "node-cache": "^4.1.1",
     "oauth": "^0.9.15",
     "prompt": "^1.0.0",
@@ -24,11 +25,10 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
-    "jsdoc-to-markdown": "^5.0.3",
     "mocha": "^6.2.3",
     "proxyquire": "^1.8.0",
     "sinon": "^4.0.2",
-    "standard": "^6.0.8"
+    "standard": "^16.0.4"
   },
   "standard": {
     "globals": [
