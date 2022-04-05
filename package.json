@@ -9,7 +9,6 @@
   "author": "@nonword",
   "license": "ISC",
   "dependencies": {
-    "@nypl/scsb-rest-client": "^1.0.6",
     "avsc": "^5.0.2",
     "colors": "^1.1.2",
     "diff": "^3.5.0",
