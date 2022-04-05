@@ -17,7 +17,7 @@ describe('Client cache', function () {
   describe('when cache=false (default)', function () {
     it('should not cache things', function () {
       // Call the same endpoint in rapid succession with caching disabled (default):
-      let apiCall = () => client.get('bibs/sierra-nypl/17746307')
+      const apiCall = () => client.get('bibs/sierra-nypl/17746307')
       return apiCall()
         .then(apiCall)
         .then(() => {
@@ -30,7 +30,7 @@ describe('Client cache', function () {
   describe('when cache=true', function () {
     it('should cache things', function () {
       // Call the same endpoint in rapid succession with caching ENABLED:
-      let apiCall = () => client.get('bibs/sierra-nypl/17746307', { cache: true })
+      const apiCall = () => client.get('bibs/sierra-nypl/17746307', { cache: true })
       return Promise.all(new Array(3).fill(apiCall()))
         .then((responses) => {
           // Confirm the client's private _doRequest method was called only once:

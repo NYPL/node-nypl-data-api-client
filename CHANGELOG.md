@@ -1,9 +1,10 @@
 # CHANGELOG
 
-## v1.0.6 - 2021-12-06
+## v1.1.0 - 2022-04-05
  - Improved caching: Cached GET requests should cache requests, not responses,
    so that identical, simultaneous requests result in a single actual HTTP
    call.
+ - Dependency updates
 
 ## v1.0.5 - 2021-12-06
  - Add support for PATCH

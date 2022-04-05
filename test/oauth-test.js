@@ -18,7 +18,7 @@ describe('OAUTH', function () {
           expect(res).to.be.a('object')
 
           // Emulate token expiration by making setting it to this known "expired" token value:
-          client.access_token = 'fake-expired-token'
+          client.accessToken = 'fake-expired-token'
           return client.get('bibs?limit=1&offset=1', { authenticate: true }).then((res) => {
             expect(res).to.be.a('object')
           })
@@ -33,7 +33,7 @@ describe('OAUTH', function () {
           expect(res).to.be.a('object')
 
           // Emulate token expiration by making setting it to this known "expired" token value:
-          client.access_token = 'fake-expired-token'
+          client.accessToken = 'fake-expired-token'
 
           // Emulate repeated token refresh failure by hijacking refreshToken:
           let refreshCalled = 0

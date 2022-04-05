@@ -1,4 +1,4 @@
-var client = null
+let client = null
 
 describe('Client POST method', function () {
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('Client POST method', function () {
   })
 
   // This is the trivial test schema we'll create
-  var testSchema = {
+  const testSchema = {
     name: 'TestSchema',
     type: 'record',
     fields: [
@@ -30,20 +30,20 @@ describe('Client POST method', function () {
     })
 
     it('should fail if supplied body is plaintext', function () {
-      let call = client.post(`schemas/${testSchema.name}`, JSON.stringify(testSchema))
+      const call = client.post(`schemas/${testSchema.name}`, JSON.stringify(testSchema))
       return expect(call).to.be.rejected
     })
 
     // A null/empty body should be accepted as valid if options.json===true
     it('should succeed if supplied body is empty', function () {
-      let call = client.post(`schemas/${testSchema.name}`)
+      const call = client.post(`schemas/${testSchema.name}`)
       return expect(call).to.be.fulfilled
     })
   })
 
   describe('when config.json=false', function () {
     it('should accept a plaintext body and return plain text', function () {
-      let call = client.post(`schemas/${testSchema.name}`, JSON.stringify(testSchema), { json: false })
+      const call = client.post(`schemas/${testSchema.name}`, JSON.stringify(testSchema), { json: false })
       return Promise.all([
         expect(call).to.be.fulfilled,
         expect(call).to.eventually.be.a('string')
@@ -51,7 +51,7 @@ describe('Client POST method', function () {
     })
 
     it('should fail if supplied body is not plaintext', function () {
-      let call = client.post(`schemas/${testSchema.name}`, testSchema, { json: false })
+      const call = client.post(`schemas/${testSchema.name}`, testSchema, { json: false })
       return expect(call).to.be.rejected
     })
   })
