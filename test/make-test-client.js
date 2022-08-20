@@ -25,10 +25,10 @@ if (process.env.USE_CREDENTIALS) {
 
   before(() => {
     sinon.stub(OAuth.OAuth2.prototype, 'getOAuthAccessToken').callsFake((code, params, callback) => {
-      let error = null
-      let accessToken = 'this-is-a-fake-access-token'
-      let refreshToken = 'this-is-a-fake-refresh-token'
-      let results = null
+      const error = null
+      const accessToken = 'this-is-a-fake-access-token'
+      const refreshToken = 'this-is-a-fake-refresh-token'
+      const results = null
       callback(error, accessToken, refreshToken, results)
     })
   })

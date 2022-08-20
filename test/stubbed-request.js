@@ -4,10 +4,10 @@ const fs = require('fs')
 function mockData (options) {
   // Build mock data paths like this:
   //   ./test/data/{encoded request uri}-{method}.json
-  let apiPath = options.uri.replace(/^.*\/api\/v0.1\//, '')
-  let testDataSubdir = encodeURIComponent(apiPath)
-  let method = (options.method || 'GET').toLowerCase()
-  let mockPath = './' + path.join('test/data/', `${testDataSubdir}-${method}`) + '.json'
+  const apiPath = options.uri.replace(/^.*\/api\/v0.1\//, '')
+  const testDataSubdir = encodeURIComponent(apiPath)
+  const method = (options.method || 'GET').toLowerCase()
+  const mockPath = './' + path.join('test/data/', `${testDataSubdir}-${method}`) + '.json'
 
   // Make sure mock file exists:
   if (!fs.existsSync(mockPath)) throw new Error('Mock doesn\'t exist: ' + mockPath)
@@ -16,8 +16,8 @@ function mockData (options) {
 }
 
 function checkAuthenticationHeader (options) {
-  let method = (options.method || 'GET').toLowerCase()
-  let apiPath = options.uri.replace(/^.*\/api\/v0.1\//, '')
+  const method = (options.method || 'GET').toLowerCase()
+  const apiPath = options.uri.replace(/^.*\/api\/v0.1\//, '')
 
   // Mock whether or not authentication is required based on request URI & method:
   // Default to requiring auth:
@@ -26,7 +26,7 @@ function checkAuthenticationHeader (options) {
   if (/^(current-schemas)/.test(apiPath) && method === 'get') requireAccessToken = false
 
   // Identify access_token:
-  let accessToken = ((options.headers || {})['Authorization'] || '').replace(/^Bearer /, '')
+  const accessToken = ((options.headers || {}).Authorization || '').replace(/^Bearer /, '')
 
   // Emulate expired token:
   if (requireAccessToken && accessToken === 'fake-expired-token') throw new Error('Authentication required, but access token expired')

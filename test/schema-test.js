@@ -1,4 +1,4 @@
-var client = null
+let client = null
 
 describe('Schema test', function () {
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe('Schema test', function () {
     })
 
     // This is the trivial test schema we'll create (and delete once supported)
-    var testSchema = {
+    const testSchema = {
       name: 'TestSchema',
       type: 'record',
       fields: [

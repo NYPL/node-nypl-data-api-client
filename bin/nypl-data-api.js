@@ -15,11 +15,11 @@ const argv = require('minimist')(process.argv.slice(2), {
 const DataApiClient = require('../')
 require('dotenv').config({ path: argv.envfile })
 
-const log_level = argv.log_level || 'error'
+const logLevel = argv.log_level || 'error'
 
-var client = new DataApiClient({ log_level })
+const client = new DataApiClient({ logLevel })
 
-var doPost = function (path, content) {
+const doPost = function (path, content) {
   if ((typeof content) !== 'object') {
     content = JSON.parse(content)
   }
@@ -33,7 +33,7 @@ var doPost = function (path, content) {
     })
 }
 
-var doPatch = function (path, content) {
+const doPatch = function (path, content) {
   if ((typeof content) !== 'object') {
     content = JSON.parse(content)
   }
@@ -47,7 +47,7 @@ var doPatch = function (path, content) {
     })
 }
 
-var doGet = function (path) {
+const doGet = function (path) {
   if (!path) throw new Error('Path required')
 
   client.get(path)
@@ -63,19 +63,19 @@ var doGet = function (path) {
     })
 }
 
-var showDiff = function (one, two) {
+const showDiff = function (one, two) {
   one = JSON.stringify(one, null, 2)
   two = JSON.stringify(two, null, 2)
   console.log('Diff: (green additions, red removals) ')
 
   if (one === two) console.log('[No detected change]')
 
-  var diff = jsdiff.diffChars(one, two)
+  const diff = jsdiff.diffChars(one, two)
 
   diff.forEach(function (part) {
     // green for additions, red for deletions
     // grey for common parts
-    var color = part.added ? 'green' : part.removed ? 'red' : 'grey'
+    const color = part.added ? 'green' : part.removed ? 'red' : 'grey'
     process.stderr.write(part.value[color])
   })
   console.log()
@@ -107,14 +107,14 @@ function promptTo (method, path, content, cb) {
 }
 
 function schemaPost () {
-  var name = argv._[2]
-  var jsonfile = argv._[3]
+  const name = argv._[2]
+  const jsonfile = argv._[3]
   if (!name) throw new Error('Missing name')
   if (!jsonfile) throw new Error('Missing jsonfile')
 
   console.log(`Executing ${command} ${subcommand}, posting new ${name} schema from ${jsonfile}`)
 
-  var promptOverwrite = function (previous, next) {
+  const promptOverwrite = function (previous, next) {
     if (previous && next) {
       showDiff(previous, next)
     }
@@ -127,7 +127,7 @@ function schemaPost () {
     })
   }
 
-  var next = fs.readFileSync(jsonfile, { encoding: 'utf8' })
+  const next = fs.readFileSync(jsonfile, { encoding: 'utf8' })
 
   // Check it for validity
   try {
@@ -153,7 +153,7 @@ const commandHash = {
       post: {
         description: 'Post a version of a schema. Will prepare request and confirm before proceeding.',
         usage: 'nypl-data-api schema post [name] [jsonfilepath]',
-        examples: [ 'nypl-data-api schema post Bib ./new-bib-schema.json' ],
+        examples: ['nypl-data-api schema post Bib ./new-bib-schema.json'],
         exec: schemaPost
       }
     }
@@ -161,19 +161,19 @@ const commandHash = {
   post: {
     description: 'Post JSON to an arbitrary endpoint. Will prepare request and confirm before proceeding.',
     usage: 'nypl-data-api post [path] [inlinejson]',
-    examples: [ 'nypl-data-api post recap/checkin-requests \'{ "foo": "bar" }\'' ],
+    examples: ['nypl-data-api post recap/checkin-requests \'{ "foo": "bar" }\''],
     exec: (argv.y ? doPost : (path, content) => promptTo('POST', path, content, doPost))
   },
   patch: {
     description: 'Patch JSON to an arbitrary endpoint. Will prepare request and confirm before proceeding.',
     usage: 'nypl-data-api patch [path] [inlinejson]',
-    examples: [ 'nypl-data-api patch hold-requests \'{ "success": false }\'' ],
+    examples: ['nypl-data-api patch hold-requests \'{ "success": false }\''],
     exec: (argv.y ? doPatch : (path, content) => promptTo('PATCH', path, content, doPatch))
   },
   get: {
     description: 'Get arbitrary endpoint.',
     usage: 'nypl-data-api get [path]',
-    examples: [ 'nypl-data-api schema get bibs' ],
+    examples: ['nypl-data-api schema get bibs'],
     exec: doGet
   }
 }
@@ -186,11 +186,11 @@ function help (command, subcommand) {
   } else if (command && commandHash[command]) {
     if (commandHash[command].exec) commandSpec = commandHash[command]
     else {
-      let subCommands = Object.keys(commandHash[command].subcommands)
+      const subCommands = Object.keys(commandHash[command].subcommands)
       console.log('Available subcommands: \n  ' + subCommands.join('\n  '))
     }
   } else {
-    let commands = Object.keys(commandHash)
+    const commands = Object.keys(commandHash)
     console.log('Available commands: \n  ' + commands.join('\n  '))
   }
 
@@ -207,13 +207,13 @@ function help (command, subcommand) {
   }
 }
 
-var command = argv._[0]
-var subcommand = argv._[1]
+const command = argv._[0]
+const subcommand = argv._[1]
 
 if (!command) help()
 else if (command === 'help') {
-  var _command = argv._[1]
-  var _subcommand = argv._[2]
+  const _command = argv._[1]
+  const _subcommand = argv._[2]
   help(_command, _subcommand)
 } else if (command) {
   try {
