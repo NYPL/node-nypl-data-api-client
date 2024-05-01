@@ -9,26 +9,24 @@
   "author": "@nonword",
   "license": "ISC",
   "dependencies": {
-    "avsc": "^5.0.2",
-    "colors": "^1.1.2",
+    "@nypl/nypl-core-objects": "^3.0.0",
+    "avsc": "^5.7.7",
     "diff": "^3.5.0",
-    "dotenv": "^4.0.0",
-    "loglevel": "^1.4.1",
+    "dotenv": "^16.4.5",
+    "loglevel": "^1.9.1",
     "loglevel-plugin-prefix": "^0.5.3",
-    "minimist": "^1.2.5",
-    "node-cache": "^4.1.1",
-    "oauth": "^0.9.15",
-    "prompt": "^1.0.0",
-    "request": "^2.88.2"
+    "minimist": "^1.2.8",
+    "node-cache": "^5.1.2",
+    "oauth": "^0.10.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
-    "jsdoc-to-markdown": "^7.1.1",
-    "mocha": "^6.2.3",
-    "proxyquire": "^1.8.0",
-    "sinon": "^4.0.2",
-    "standard": "^17.0.0"
+    "jsdoc-to-markdown": "^8.0.1",
+    "mocha": "^10.4.0",
+    "prompts": "^2.4.2",
+    "sinon": "^17.0.1",
+    "standard": "^17.1.0"
   },
   "standard": {
     "globals": [

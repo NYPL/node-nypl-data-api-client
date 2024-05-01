@@ -1,3 +1,5 @@
+const { fetchSpy } = require('./helper')
+
 let client = null
 
 describe('Client PATCH method', function () {
@@ -18,37 +20,43 @@ describe('Client PATCH method', function () {
   }
 
   describe('when config.json=true (default)', function () {
-    it('should accept a new schema object via PATCH and return an object', function () {
-      return client.patch('hold-requests/1234', holdRequestPatch)
-        .then((resp) => {
-          expect(resp).to.be.a('object')
-        })
+    it('should accept a new schema object via PATCH and return an object', async () => {
+      const resp = await client.patch('hold-requests/1234', holdRequestPatch)
+      expect(resp).to.be.a('object')
+
+      // Check that this translates into the right `fetch` call
+      expect(fetchSpy().callCount).to.eq(1)
+      expect(fetchSpy().firstCall.args[0]).to.eq(
+        'fake-proto://fake-fqdn/api/v0.1/hold-requests/1234'
+      )
+      expect(fetchSpy().firstCall.args[1]).to.deep.equal({
+        // Verify PATCHed body is stringified:
+        body: '{"success":true,"processed":true}',
+        method: 'PATCH',
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer this-is-a-fake-access-token',
+          'Content-Type': 'application/json'
+        }
+      })
     })
 
-    it('should fail if supplied body is plaintext', function () {
+    it('should fail if supplied body is plaintext', async () => {
       const call = client.patch('hold-requests/1234', JSON.stringify(holdRequestPatch))
-      return expect(call).to.be.rejected
+      await expect(call).to.be.rejectedWith('Attempted to PATCH with options.json==true, but body is a string')
     })
 
     // A null/empty body should be accepted as valid if options.json===true
-    it('should succeed if supplied body is empty', function () {
+    it('should succeed if supplied body is empty', async () => {
       const call = client.patch('hold-requests/1234')
-      return expect(call).to.be.fulfilled
+      await expect(call).to.be.eventually.be.a('object')
     })
   })
 
-  describe('when config.json=false', function () {
-    it('should accept a plaintext body and return plain text', function () {
+  describe('when config.json=false', () => {
+    it('should accept a plaintext body and return plain text', async () => {
       const call = client.patch('hold-requests/1234', JSON.stringify(holdRequestPatch), { json: false })
-      return Promise.all([
-        expect(call).to.be.fulfilled,
-        expect(call).to.eventually.be.a('string')
-      ])
-    })
-
-    it('should fail if supplied body is not plaintext', function () {
-      const call = client.patch('hold-requests/1234', holdRequestPatch, { json: false })
-      return expect(call).to.be.rejected
+      await expect(call).to.eventually.be.a('string')
     })
   })
 })

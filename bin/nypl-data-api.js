@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
 const fs = require('fs')
-const prompt = require('prompt')
+const prompts = require('prompts')
 const jsdiff = require('diff')
 const avsc = require('avsc')
-require('colors')
 
 const argv = require('minimist')(process.argv.slice(2), {
   default: {
@@ -19,6 +18,23 @@ const logLevel = argv.log_level || 'error'
 
 const client = new DataApiClient({ logLevel })
 
+/**
+* Pretty-print a response recieved
+*/
+const printResponse = (resp) => {
+  let formattedResponse = resp
+  if (typeof resp !== 'string') {
+    // If JSON, format as json, otherwise print as-is:
+    try { Object.keys(resp).length >= 1 && (formattedResponse = JSON.stringify(resp, null, 2)) } catch (e) { }
+  }
+  console.log('Response: \n', formattedResponse)
+
+  // Detect the distinct API Gateway bad-request-path error:
+  if (resp?.message?.includes(' not a valid key=value pair ')) {
+    console.log('This response may indicate that the method/path are incorrect.')
+  }
+}
+
 const doPost = function (path, content) {
   if ((typeof content) !== 'object') {
     content = JSON.parse(content)
@@ -27,7 +43,7 @@ const doPost = function (path, content) {
   client.post(path, content)
     .then((resp) => {
       console.log(`Done POSTing to ${path}`)
-      console.log(`Response: ${JSON.stringify(resp, null, 2)}`)
+      printResponse(resp)
     }).catch((e) => {
       console.error('Error: ', e)
     })
@@ -41,7 +57,21 @@ const doPatch = function (path, content) {
   client.patch(path, content)
     .then((resp) => {
       console.log(`Done PATCHing ${path}`)
-      console.log(`Response: ${JSON.stringify(resp, null, 2)}`)
+      printResponse(resp)
+    }).catch((e) => {
+      console.error('Error: ', e)
+    })
+}
+
+const doPut = function (path, content) {
+  if ((typeof content) !== 'object') {
+    content = JSON.parse(content)
+  }
+
+  client.put(path, content)
+    .then((resp) => {
+      console.log(`Done PUTing to ${path}`)
+      printResponse(resp)
     }).catch((e) => {
       console.error('Error: ', e)
     })
@@ -52,12 +82,7 @@ const doGet = function (path) {
 
   client.get(path)
     .then((resp) => {
-      let formattedResponse = resp
-      if (typeof resp !== 'string') {
-        // If JSON, format as json, otherwise print as-is:
-        try { Object.keys(resp).length >= 1 && (formattedResponse = JSON.stringify(resp, null, 2)) } catch (e) { }
-      }
-      console.log('Got response: \n', formattedResponse)
+      printResponse(resp)
     }).catch((e) => {
       console.error('Error: ', e)
     })
@@ -81,7 +106,10 @@ const showDiff = function (one, two) {
   console.log()
 }
 
-function promptTo (method, path, content, cb) {
+/**
+* Given a method, path, and content (to post/patch/put), ask the user before proceeding.
+*/
+async function promptTo (method, path, content, cb) {
   if (argv.content) {
     content = fs.readFileSync(argv.content, 'utf8')
   }
@@ -98,12 +126,16 @@ function promptTo (method, path, content, cb) {
   console.log(`  To endpoint: ${process.env.NYPL_API_BASE_URL}${path}:`)
   console.log(`  Using credentials: ${process.env.NYPL_OAUTH_KEY}@${process.env.NYPL_OAUTH_URL}`)
   console.log(`${JSON.stringify(content, null, 2)}`)
-  console.log('Proceed?')
-  prompt.start()
-  prompt.get('y/n', (e, result) => {
-    if (result['y/n'] === 'y') cb(path, content)
-    else console.log('Aborting.')
+  const response = await prompts({
+    type: 'text',
+    name: 'yn',
+    message: 'Proceed? (y|n)',
+    validate: (v) => ['y', 'n'].includes(v)
   })
+  if (response.yn === 'y') {
+    console.log(`Proceeding to ${method} ${path} ${content}`)
+    cb(path, content)
+  }
 }
 
 function schemaPost () {
@@ -114,17 +146,20 @@ function schemaPost () {
 
   console.log(`Executing ${command} ${subcommand}, posting new ${name} schema from ${jsonfile}`)
 
-  const promptOverwrite = function (previous, next) {
+  const promptOverwrite = async function (previous, next) {
     if (previous && next) {
       showDiff(previous, next)
     }
     const path = `schemas/${name}`
-    console.log(`Really upload to ${process.env.NYPL_API_BASE_URL}${path} ?`)
-    prompt.start()
-    prompt.get('y/n', (e, result) => {
-      if (result['y/n'] === 'y') doPost(path, next)
-      else console.log('Aborting.')
+
+    const response = await prompts({
+      type: 'text',
+      name: 'yn',
+      message: `Really upload to ${process.env.NYPL_API_BASE_URL}${path} ? (y|n)`,
+      validate: (v) => ['y', 'n'].includes(v)
     })
+    if (response.yn === 'y') doPost(path, next)
+    else console.log('Aborting.')
   }
 
   const next = fs.readFileSync(jsonfile, { encoding: 'utf8' })
@@ -163,6 +198,12 @@ const commandHash = {
     usage: 'nypl-data-api post [path] [inlinejson]',
     examples: ['nypl-data-api post recap/checkin-requests \'{ "foo": "bar" }\''],
     exec: (argv.y ? doPost : (path, content) => promptTo('POST', path, content, doPost))
+  },
+  put: {
+    description: 'PUT JSON to an arbitrary endpoint. Will prepare request and confirm before proceeding.',
+    usage: 'nypl-data-api put [path] [inlinejson]',
+    examples: ['nypl-data-api put jobs/1234xyz \'{ "notice": { "createdDate": "2023-06-02T00:00:00Z", "text": "Sample notice" } }\''],
+    exec: (argv.y ? doPut : (path, content) => promptTo('PUT', path, content, doPut))
   },
   patch: {
     description: 'Patch JSON to an arbitrary endpoint. Will prepare request and confirm before proceeding.',

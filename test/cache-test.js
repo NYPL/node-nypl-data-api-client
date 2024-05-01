@@ -15,28 +15,28 @@ describe('Client cache', function () {
   })
 
   describe('when cache=false (default)', function () {
-    it('should not cache things', function () {
+    it('should not cache things', async () => {
       // Call the same endpoint in rapid succession with caching disabled (default):
       const apiCall = () => client.get('bibs/sierra-nypl/17746307')
-      return apiCall()
-        .then(apiCall)
-        .then(() => {
-          // Confirm the client's private _doRequest method was called twice:
-          expect(httpRequestSpy.callCount).to.equal(2)
-        })
+
+      await apiCall()
+      await apiCall()
+
+      // Confirm the client's private _doRequest method was called twice:
+      expect(httpRequestSpy.callCount).to.equal(2)
     })
   })
 
   describe('when cache=true', function () {
-    it('should cache things', function () {
+    it('should cache things', async () => {
       // Call the same endpoint in rapid succession with caching ENABLED:
       const apiCall = () => client.get('bibs/sierra-nypl/17746307', { cache: true })
-      return apiCall()
-        .then(apiCall)
-        .then(() => {
-          // Confirm the client's private _doRequest method was called only once:
-          expect(httpRequestSpy.callCount).to.equal(1)
-        })
+
+      await apiCall()
+      await apiCall()
+
+      // Confirm the client's private _doRequest method was called only once:
+      expect(httpRequestSpy.callCount).to.equal(1)
     })
   })
 })
