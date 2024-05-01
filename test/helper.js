@@ -18,7 +18,6 @@ beforeEach(() => {
     callback(error, accessToken, refreshToken, results)
   })
 
-  console.log('applying stub to fetch', global.fetch, fetch)
   _fetchSpy = sinon.stub(global, 'fetch').callsFake(fixtureForRequest)
 })
 
