@@ -2,7 +2,7 @@ const oauth = require('oauth')
 const sinon = require('sinon')
 const chai = require('chai')
 const chaiAsPromised = require('chai-as-promised')
-// const { fixtureForRequest } = require('./fixtures')
+const { fixtureForRequest } = require('./fixtures')
 
 chai.use(chaiAsPromised)
 global.expect = chai.expect
@@ -18,13 +18,17 @@ beforeEach(() => {
     callback(error, accessToken, refreshToken, results)
   })
 
-  console.log('Stubbing fetch')
-  // _fetchSpy = sinon.stub(global, 'fetch').callsFake(fixtureForRequest)
+  // Fix for very weird Node 20.12.2 bug where you have to reference `fetch`
+  // in some way before stubbing it or else the stub will not take. This is
+  // not a bug in Node 20.11.1 nor in Node 22.1.0
+  expect(fetch).to.be.a('function')
+
+  _fetchSpy = sinon.stub(global, 'fetch').callsFake(fixtureForRequest)
 })
 
 afterEach(() => {
   oauth.OAuth2.prototype.getOAuthAccessToken.restore()
-  // _fetchSpy.restore()
+  _fetchSpy.restore()
 })
 
 module.exports = {
