@@ -3,7 +3,8 @@ const sinon = require('sinon')
 describe.only('Travis debug test', function () {
   beforeEach(() => {
     sinon.stub(global, 'fetch').callsFake(() => Promise.resolve())
-    console.log('Stubbed fetch? ', global.fetch, fetch, !!fetch.restore)
+    console.log('Stubbed fetch? ', fetch, !!fetch.restore)
+    console.log('Stubbed global.fetch? ', global.fetch, !!global.fetch.restore)
   })
 
   afterEach(() => {
