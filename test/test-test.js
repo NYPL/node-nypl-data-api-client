@@ -12,26 +12,26 @@ const doAssertions = () => {
 }
 
 const restore = () => {
-  global.fetch.restore()
+  if (global.fetch.restore) {
+    global.fetch.restore()
+  }
 }
 
 describe.only('Travis debug test', () => {
-  describe('Working everywhere', () => {
+  describe('Failing in Travis', () => {
     beforeEach(() => {
-      expect(fetch).to.be.a('function')
-
       stubFetch()
     })
 
-    afterEach(() => {
-      global.fetch.restore()
-    })
+    afterEach(restore)
 
     it('should show that fetch is stubbed', doAssertions)
   })
 
-  describe('Failing in Travis', () => {
+  describe('Working everywhere', () => {
     beforeEach(() => {
+      expect(fetch).to.be.a('function')
+
       stubFetch()
     })
 
