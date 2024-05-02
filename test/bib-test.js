@@ -8,6 +8,7 @@ describe.only('Bib test', function () {
     client = require('./make-test-client')()
 
     sinon.stub(global, 'fetch').callsFake(fixtureForRequest)
+    console.log('Stubbed fetch? ', fetch, !!fetch.restore)
   })
 
   afterEach(() => {
@@ -17,7 +18,7 @@ describe.only('Bib test', function () {
 
   describe('Bibs endpoint', function () {
     it('should return a Bib', async () => {
-      console.log('Stubbed fetch? ', fetch, !!fetch.restore)
+      console.log('(inside test) Stubbed fetch? ', fetch, !!fetch.restore)
 
       const resp = await client.get('bibs/sierra-nypl/17746307', { authenticate: true })
       expect(resp.data).to.be.a('object')
