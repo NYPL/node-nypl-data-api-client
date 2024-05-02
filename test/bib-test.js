@@ -3,7 +3,7 @@ const { fixtureForRequest } = require('./fixtures')
 
 let client = null
 
-describe.only('Bib test', function () {
+describe('Bib test', function () {
   beforeEach(() => {
     client = require('./make-test-client')()
 
