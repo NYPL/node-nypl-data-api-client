@@ -1,6 +1,6 @@
 const sinon = require('sinon')
 
-describe.only('Travis debug test', function () {
+describe.only('Travis debug test', () => {
   beforeEach(() => {
     sinon.stub(global, 'fetch').callsFake(() => Promise.resolve())
     console.log('Stubbed fetch? ', fetch, !!fetch.restore)
