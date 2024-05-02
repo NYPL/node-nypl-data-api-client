@@ -2,7 +2,7 @@ const oauth = require('oauth')
 const sinon = require('sinon')
 const chai = require('chai')
 const chaiAsPromised = require('chai-as-promised')
-const { fixtureForRequest } = require('./fixtures')
+// const { fixtureForRequest } = require('./fixtures')
 
 chai.use(chaiAsPromised)
 global.expect = chai.expect
@@ -19,12 +19,12 @@ beforeEach(() => {
   })
 
   console.log('Stubbing fetch')
-  _fetchSpy = sinon.stub(global, 'fetch').callsFake(fixtureForRequest)
+  // _fetchSpy = sinon.stub(global, 'fetch').callsFake(fixtureForRequest)
 })
 
 afterEach(() => {
   oauth.OAuth2.prototype.getOAuthAccessToken.restore()
-  _fetchSpy.restore()
+  // _fetchSpy.restore()
 })
 
 module.exports = {

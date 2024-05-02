@@ -1,12 +1,18 @@
+const sinon = require('sinon')
+const { fixtureForRequest } = require('./fixtures')
+
 let client = null
 
-describe('Bib test', function () {
+describe.only('Bib test', function () {
   beforeEach(() => {
     client = require('./make-test-client')()
+
+    sinon.stub(global, 'fetch').callsFake(fixtureForRequest)
   })
 
   afterEach(() => {
     client = null
+    global.fetch.restore()
   })
 
   describe('Bibs endpoint', function () {
