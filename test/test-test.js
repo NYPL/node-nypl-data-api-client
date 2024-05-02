@@ -1,19 +1,42 @@
 const sinon = require('sinon')
 
+const stubFetch = () => {
+  sinon.stub(global, 'fetch').callsFake(() => Promise.resolve())
+  console.log('Stubbed fetch? ', fetch, !!fetch.restore)
+  console.log('Stubbed global.fetch? ', global.fetch, !!global.fetch.restore)
+}
+
+const doAssertions = () => {
+  console.log('(inside test) Stubbed fetch? ', fetch, !!fetch.restore)
+  expect(fetch.restore).to.be.a('function')
+}
+
+const restore = () => {
+  global.fetch.restore()
+}
+
 describe.only('Travis debug test', () => {
-  beforeEach(() => {
-    // console.log('Stubbing fetch:', fetch)
-    expect(fetch).to.be.a('function')
-    sinon.stub(global, 'fetch').callsFake(() => Promise.resolve())
-    console.log('Stubbed fetch? ', fetch, !!fetch.restore)
-    console.log('Stubbed global.fetch? ', global.fetch, !!global.fetch.restore)
+  describe('Working everywhere', () => {
+    beforeEach(() => {
+      expect(fetch).to.be.a('function')
+
+      stubFetch()
+    })
+
+    afterEach(() => {
+      global.fetch.restore()
+    })
+
+    it('should show that fetch is stubbed', doAssertions)
   })
 
-  afterEach(() => {
-    global.fetch.restore()
-  })
+  describe('Failing in Travis', () => {
+    beforeEach(() => {
+      stubFetch()
+    })
 
-  it('should show that fetch is stubbed', async () => {
-    console.log('(inside test) Stubbed fetch? ', fetch, !!fetch.restore)
+    afterEach(restore)
+
+    it('should show that fetch is stubbed', doAssertions)
   })
 })
