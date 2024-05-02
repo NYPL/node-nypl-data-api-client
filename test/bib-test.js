@@ -11,6 +11,8 @@ describe('Bib test', function () {
 
   describe('Bibs endpoint', function () {
     it('should return a Bib', async () => {
+      console.log('Stubbed fetch? ', fetch, !!fetch.restore)
+
       const resp = await client.get('bibs/sierra-nypl/17746307', { authenticate: true })
       expect(resp.data).to.be.a('object')
       expect(resp.data).to.have.a.property('id', '17746307')
