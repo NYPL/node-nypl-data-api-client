@@ -1,3 +1,4 @@
+const { rejects } = require('node:assert/strict')
 const { fetchSpy } = require('./helper')
 
 let client = null
@@ -43,20 +44,23 @@ describe('Client PATCH method', function () {
 
     it('should fail if supplied body is plaintext', async () => {
       const call = client.patch('hold-requests/1234', JSON.stringify(holdRequestPatch))
-      await expect(call).to.be.rejectedWith('Attempted to PATCH with options.json==true, but body is a string')
+      return rejects(call, {
+        name: 'RequestError',
+        message: 'Attempted to PATCH with options.json==true, but body is a string'
+      })
     })
 
     // A null/empty body should be accepted as valid if options.json===true
     it('should succeed if supplied body is empty', async () => {
-      const call = client.patch('hold-requests/1234')
-      await expect(call).to.be.eventually.be.a('object')
+      const call = await client.patch('hold-requests/1234')
+      expect(call).to.be.a('object')
     })
   })
 
   describe('when config.json=false', () => {
     it('should accept a plaintext body and return plain text', async () => {
-      const call = client.patch('hold-requests/1234', JSON.stringify(holdRequestPatch), { json: false })
-      await expect(call).to.eventually.be.a('string')
+      const res = await client.patch('hold-requests/1234', JSON.stringify(holdRequestPatch), { json: false })
+      await expect(res).be.a('string')
     })
   })
 })

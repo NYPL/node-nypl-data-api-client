@@ -1,10 +1,8 @@
 const oauth = require('oauth')
 const sinon = require('sinon')
 const chai = require('chai')
-const chaiAsPromised = require('chai-as-promised')
 const { fixtureForRequest } = require('./fixtures')
 
-chai.use(chaiAsPromised)
 global.expect = chai.expect
 
 let _fetchSpy

@@ -27,7 +27,8 @@ const printResponse = (resp) => {
     // If JSON, format as json, otherwise print as-is:
     try { Object.keys(resp).length >= 1 && (formattedResponse = JSON.stringify(resp, null, 2)) } catch (e) { }
   }
-  console.log('Response: \n', formattedResponse)
+  console.log('Response:')
+  console.log(formattedResponse)
 
   // Detect the distinct API Gateway bad-request-path error:
   if (resp?.message?.includes(' not a valid key=value pair ')) {

@@ -1,3 +1,4 @@
+const { rejects } = require('node:assert/strict')
 const { fetchSpy } = require('./helper')
 
 let client = null
@@ -47,20 +48,23 @@ describe('Client POST method', function () {
 
     it('should fail if supplied body is plaintext', () => {
       const call = client.post(`schemas/${testSchema.name}`, JSON.stringify(testSchema))
-      return expect(call).to.be.rejectedWith('Attempted to POST with options.json==true, but body is a string')
+      return rejects(call, {
+        name: 'RequestError',
+        message: 'Attempted to POST with options.json==true, but body is a string'
+      })
     })
 
     // A null/empty body should be accepted as valid if options.json===true
-    it('should succeed if supplied body is empty', () => {
-      const call = client.post(`schemas/${testSchema.name}`)
-      return expect(call).to.be.fulfilled
+    it('should succeed if supplied body is empty', async () => {
+      const resp = await client.post(`schemas/${testSchema.name}`)
+      return expect(resp).to.deep.eq({ data: { stream: 'TestSchema' } })
     })
   })
 
-  describe('when config.json=false', () => {
-    it('should accept a plaintext body and return plain text', () => {
-      const call = client.post(`schemas/${testSchema.name}`, JSON.stringify(testSchema), { json: false })
-      return expect(call).to.eventually.be.a('string')
+  describe('when config.json=false', async () => {
+    it('should accept a plaintext body and return plain text', async () => {
+      const call = await client.post(`schemas/${testSchema.name}`, JSON.stringify(testSchema), { json: false })
+      expect(call).to.be.a('string')
     })
   })
 })
