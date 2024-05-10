@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v2.0.0 - 2024-05-10
+ - Require Node 18/20
+ - Dependency updates to address vulnerabilities
+ - Use native `fetch`
+
 ## v1.0.5 - 2021-12-06
  - Add support for PATCH
  - Improved schema-post CLI util
