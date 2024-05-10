@@ -24,6 +24,7 @@
     * [new Client(options)](#new_Client_new)
     * [.get(path, options)](#Client+get) ⇒ <code>Promise</code>
     * [.post(path, body, options)](#Client+post) ⇒ <code>Promise</code>
+    * [.patch(path, body, options)](#Client+patch) ⇒ <code>Promise</code>
     * [.dangerouslyCallDelete(path, body, options)](#Client+dangerouslyCallDelete) ⇒ <code>Promise</code>
 
 <a name="new_Client_new"></a>
@@ -59,6 +60,20 @@ POST an object to an api endpoint
 | --- | --- | --- |
 | path | <code>string</code> | The path to fetch (e.g. 'current-schema/Item') |
 | body | <code>Object</code> | The object/string to pass with the request |
+| options | [<code>RequestOptions</code>](#RequestOptions) | A hash of options. |
+
+<a name="Client+patch"></a>
+
+### client.patch(path, body, options) ⇒ <code>Promise</code>
+PATCH a resource at an api endpoint
+
+**Kind**: instance method of [<code>Client</code>](#Client)  
+**Returns**: <code>Promise</code> - A promise that resolves the result data  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | The path to fetch (e.g. 'current-schema/Item') |
+| body | <code>Object</code> | The partial object to pass with the request |
 | options | [<code>RequestOptions</code>](#RequestOptions) | A hash of options. |
 
 <a name="Client+dangerouslyCallDelete"></a>

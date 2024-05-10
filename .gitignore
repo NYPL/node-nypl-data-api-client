@@ -2,4 +2,6 @@
 node_modules
 
 # OAUTH keys & other vars:
-.env
+.env*
+# Allow the example file:
+!.env-example

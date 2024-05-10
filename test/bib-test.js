@@ -10,13 +10,11 @@ describe('Bib test', function () {
   })
 
   describe('Bibs endpoint', function () {
-    it('should return a Bib', function () {
-      return client.get('bibs/sierra-nypl/17746307', { authenticate: true })
-        .then((resp) => {
-          expect(resp.data).to.be.a('object')
-          expect(resp.data).to.have.a.property('id', '17746307')
-          expect(resp.data).to.have.a.property('nyplSource', 'sierra-nypl')
-        })
+    it('should return a Bib', async () => {
+      const resp = await client.get('bibs/sierra-nypl/17746307', { authenticate: true })
+      expect(resp.data).to.be.a('object')
+      expect(resp.data).to.have.a.property('id', '17746307')
+      expect(resp.data).to.have.a.property('nyplSource', 'sierra-nypl')
     })
   })
 })
