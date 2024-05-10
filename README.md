@@ -14,7 +14,7 @@ Initialize a client (see [ClientConstructorOptions](/usage.md#ClientConstructorO
 
 ```js
 const NyplClient = require('@nypl/nypl-data-api-client')
-var client = new NyplClient({ 
+const client = new NyplClient({
   base_url: 'http://[FQDN].com/api/v0.1/',
   oauth_key: 'oauth-key',
   oauth_secret 'top-secret-oauth-secret',
@@ -59,8 +59,8 @@ To get patron id `12345678` (note you must auth with an account that has the 're
   const pType = Object.keys(patron.fixedFields).map((key) => patron.fixedFields[key])
     .filter((fixed) => fixed.label === 'Patron Type')[0]
     .value
-  var name = patron.names[0]
-  var barcode = patron.barCodes[0]
+  const name = patron.names[0]
+  const barcode = patron.barCodes[0]
 
   console.log('Patron:')
   console.log('  Name: ' + name)
