@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+require('colors')
 const fs = require('fs')
 const prompts = require('prompts')
 const jsdiff = require('diff')
@@ -7,8 +8,10 @@ const avsc = require('avsc')
 
 const argv = require('minimist')(process.argv.slice(2), {
   default: {
-    envfile: '.env'
-  }
+    envfile: '.env',
+    json: true
+  },
+  boolean: ['json']
 })
 
 const DataApiClient = require('../')
@@ -81,7 +84,7 @@ const doPut = function (path, content) {
 const doGet = function (path) {
   if (!path) throw new Error('Path required')
 
-  client.get(path)
+  client.get(path, { json: argv.json })
     .then((resp) => {
       printResponse(resp)
     }).catch((e) => {
@@ -92,17 +95,21 @@ const doGet = function (path) {
 const showDiff = function (one, two) {
   one = JSON.stringify(one, null, 2)
   two = JSON.stringify(two, null, 2)
+
   console.log('Diff: (green additions, red removals) ')
 
   if (one === two) console.log('[No detected change]')
 
   const diff = jsdiff.diffChars(one, two)
 
-  diff.forEach(function (part) {
+  diff.forEach((part) => {
     // green for additions, red for deletions
-    // grey for common parts
-    const color = part.added ? 'green' : part.removed ? 'red' : 'grey'
-    process.stderr.write(part.value[color])
+    const text = part.added
+      ? part.value.bgGreen
+      : part.removed
+        ? part.value.bgRed
+        : part.value
+    process.stderr.write(text)
   })
   console.log()
 }
@@ -137,6 +144,19 @@ async function promptTo (method, path, content, cb) {
     console.log(`Proceeding to ${method} ${path} ${content}`)
     cb(path, content)
   }
+}
+
+async function schemaFetch () {
+  const name = argv._[2]
+  if (!name) throw new Error('Missing name')
+
+  console.log(`Executing ${command} ${subcommand}, retrieving ${name} schema`)
+
+  const schema = await client.get(`current-schemas/${name}`)
+  const path = `./${name}.schema.json`
+  fs.writeFileSync(path, JSON.stringify(schema.data.schemaObject, null, 2))
+
+  console.info(`Wrote schema to ${path}`)
 }
 
 function schemaPost () {
@@ -175,7 +195,7 @@ function schemaPost () {
   }
 
   client.get(`current-schemas/${name}`).then((previous) => {
-    promptOverwrite(previous.schemaObject, JSON.parse(next))
+    promptOverwrite(previous.data.schemaObject, JSON.parse(next))
   }).catch((e) => {
     console.log('Error fetching ' + name + ' (' + JSON.stringify(e.message, null, 2) + ')')
     promptOverwrite(null, next)
@@ -191,6 +211,12 @@ const commandHash = {
         usage: 'nypl-data-api schema post [name] [jsonfilepath]',
         examples: ['nypl-data-api schema post Bib ./new-bib-schema.json'],
         exec: schemaPost
+      },
+      fetch: {
+        description: 'Retrieve a schema (e.g. for editing)',
+        usage: 'nypl-data-api schema fetch [name]',
+        examples: ['nypl-data-api schema fetch Bib'],
+        exec: schemaFetch
       }
     }
   },
